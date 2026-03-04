@@ -1,56 +1,62 @@
 # create-cursor-skill
 
-**Skill que guia a criação de Agent Skills no Cursor** — estrutura de pastas, formato SKILL.md, frontmatter, regras .mdc e boas práticas (padrão [agentskills.io](https://agentskills.io/)).
+**Skill that guides creation of Agent Skills in Cursor** — folder structure, SKILL.md format, frontmatter, .mdc rules and best practices ([agentskills.io](https://agentskills.io/) standard).
 
 ---
 
-## Estrutura desta skill
+## Structure of this skill
 
 ```
 create-cursor-skill/
 │
-├── SKILL.md              ← Entrada principal para o agente
-│                             Usar modo Plan (Build) antes de implementar
-│                             Decisão Skill vs Rule (.mdc)
-│                             Estrutura obrigatória, onde guardar
-│                             Formato SKILL.md e frontmatter
-│                             Checklist antes de publicar
+├── SKILL.md              ← Main entry for the agent
+│                             Use Plan (Build) mode before implementing
+│                             Skill vs Rule (.mdc) decision
+│                             Required structure, where to store
+│                             SKILL.md format and frontmatter
+│                             Pre-publish checklist
 │
-├── reference.md          ← Referência detalhada
-│                             Skills vs Rules, diretórios
-│                             Estrutura completa, frontmatter, .mdc
+├── reference.md          ← Detailed reference
+│                             Skills vs Rules, directories
+│                             Full structure, frontmatter, .mdc
 │                             Progressive disclosure, scripts
 │
-├── examples.md           ← Exemplos práticos
-│                             Skill mínima, com references, com scripts
-│                             Exemplo de Rule .mdc
+├── examples.md           ← Practical examples
+│                             Minimal skill, with references, with scripts
+│                             Example .mdc Rule
 │
-└── README.md             ← Este ficheiro (para humanos)
+└── README.md             ← This file (for humans)
 ```
 
 ---
 
-## Quando usar
+## When to use
 
-- Queres **criar uma nova skill** do zero (o agente deve usar **modo Plan/Build** primeiro para recolher requisitos).
-- Tens dúvidas sobre **estrutura de pastas**, **SKILL.md**, **frontmatter** ou **onde guardar** (projeto vs utilizador).
-- Precisas de distinguir **Skills** (SKILL.md em pasta) de **Rules** (ficheiros .mdc em `.cursor/rules/`).
-- Queres **exemplos** de skills mínimas, com referências ou com scripts.
+- You want to **create a new skill** from scratch (the agent should use **Plan/Build mode** first to gather requirements).
+- You have doubts about **folder structure**, **SKILL.md**, **frontmatter** or **where to store** (project vs user).
+- You need to distinguish **Skills** (SKILL.md in a folder) from **Rules** (.mdc files in `.cursor/rules/`).
+- You want **examples** of minimal skills, with references or with scripts.
 
-O agente usa esta skill quando detecta pedidos como "como criar uma skill", "estrutura de uma skill", "SKILL.md", ".mdc", etc.
-
----
-
-## Onde esta skill está guardada
-
-- **Neste projeto:** `.cursor/skills/create-cursor-skill/` — o Cursor carrega skills desta pasta automaticamente.
-
-Para usar em todos os teus projetos, copia para `~/.cursor/skills/create-cursor-skill/`.
+The agent uses this skill when it detects requests like "how to create a skill", "skill structure", "SKILL.md", ".mdc", etc.
 
 ---
 
-## Referências oficiais
+## Where this skill is stored
+
+- **In this project:** `.cursor/skills/create-cursor-skill/` — Cursor loads skills from this folder automatically.
+
+To use in all your projects, copy to `~/.cursor/skills/create-cursor-skill/`.
+
+---
+
+## Source
+
+From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills): `git clone -b create-cursor-skill https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/create-cursor-skill ~/.cursor/skills/`
+
+---
+
+## Official references
 
 - [Cursor Docs — Agent Skills](https://cursor.com/docs/context/skills)
 - [Cursor Docs — Rules](https://cursor.com/docs/context/rules)
-- [agentskills.io](https://agentskills.io/) — especificação SKILL.md
+- [agentskills.io](https://agentskills.io/) — SKILL.md specification
