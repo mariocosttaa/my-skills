@@ -10,47 +10,47 @@ description: >
 
 # NestJS Unit Tests
 
-Skill para escrever testes unitários em NestJS seguindo boas práticas: posição e nome do ficheiro, sintaxe com Jest e `TestingModule`, e **comentários em inglês** (uma ou duas linhas, objetivos) para facilitar a leitura.
+Skill for writing NestJS unit tests following best practices: file placement and naming, Jest and `TestingModule` syntax, and **comments in English** (one or two lines, objective) for readability.
 
 ---
 
-## Ao criar ou editar testes: perguntar antes de executar e corrigir
+## When creating or editing tests: ask before running and fixing
 
-1. **Executar e corrigir testes:** Ao criar ou alterar testes unitários, **perguntar** ao utilizador se quer que executes os testes e, se falharem, os corriga. Não assumir que deve correr e corrigir automaticamente.
-2. **Alterar só ficheiros de teste:** Se para fazer os testes passarem for necessário alterar **outro ficheiro fora do teste** (ex.: o service, o controller, um módulo ou config), **não o faças**. Em vez disso, **pergunta** ao utilizador: explica o que está a falhar e que alteração no código de produção (ou noutro ficheiro) seria necessária, e pergunta se deseja que apliques essa alteração ou se prefere resolver de outra forma.
+1. **Run and fix tests:** When creating or changing unit tests, **ask** the user if they want you to run the tests and, if they fail, fix them. Do not assume you should run and fix automatically.
+2. **Only modify test files:** If making the tests pass requires changing **another file outside the test** (e.g. the service, controller, a module or config), **do not do it**. Instead, **ask** the user: explain what is failing and what change in production code (or another file) would be needed, and ask if they want you to apply that change or prefer to resolve it another way.
 
-Resumo: perguntar se deve testar e corrigir; ao corrigir, só mexer em ficheiros `*.spec.ts`; qualquer mudança noutro ficheiro exige pergunta prévia.
+Summary: ask if you should run tests and fix; when fixing, only touch `*.spec.ts` files; any change in another file requires prior confirmation.
 
 ---
 
-## Posição e nome do ficheiro
+## File placement and naming
 
-- **Posição:** O ficheiro de teste fica **no mesmo diretório** que o ficheiro que testa (co-location).
-- **Nome:** `{nome-do-ficheiro}.spec.ts`
-  - Exemplos: `users.service.spec.ts`, `users.controller.spec.ts`, `auth.guard.spec.ts`, `validate-payload.pipe.spec.ts`
+- **Placement:** The test file is **in the same directory** as the file it tests (co-location).
+- **Name:** `{file-name}.spec.ts`
+  - Examples: `users.service.spec.ts`, `users.controller.spec.ts`, `auth.guard.spec.ts`, `validate-payload.pipe.spec.ts`
 
-Estrutura de exemplo:
+Example structure:
 ```
 src/
   users/
     users.service.ts
-    users.service.spec.ts      ← unit test do service
+    users.service.spec.ts      ← unit test for service
     users.controller.ts
-    users.controller.spec.ts   ← unit test do controller
+    users.controller.spec.ts   ← unit test for controller
 ```
 
-Não colocar testes unitários em pastas separadas (ex.: `test/unit/`); manter junto ao código.
+Do not put unit tests in separate folders (e.g. `test/unit/`); keep them with the code.
 
 ---
 
-## Comentários (obrigatório como padrão)
+## Comments (required by default)
 
-- **Idioma:** Sempre **inglês**.
-- **Estilo:** Uma linha, ou duas se necessário; objetivos e breves.
-- **Onde:** Nos pontos que ajudam a ler o teste: no início do `describe`, no `beforeEach` (o que está a ser preparado), no início de cada `it` (cenário) e, dentro do `it`, em passos não óbvios (ex.: porque se faz um mock específico, o que se está a afirmar).
-- **Não:** Encher cada linha de comentário; comentar o óbvio. O objetivo é facilitar a leitura sem poluir.
+- **Language:** Always **English**.
+- **Style:** One line, or two if needed; objective and brief.
+- **Where:** At points that help read the test: at the start of `describe`, in `beforeEach` (what is being prepared), at the start of each `it` (scenario), and inside `it` for non-obvious steps (e.g. why a specific mock is used, what is being asserted).
+- **Avoid:** Commenting every line; commenting the obvious. The goal is to aid reading without clutter.
 
-Exemplo de densidade adequada:
+Example of adequate density:
 ```typescript
 // Unit tests for UserService: creation and password hashing.
 describe('UserService', () => {
@@ -86,47 +86,47 @@ describe('UserService', () => {
 
 ---
 
-## Sintaxe e estrutura
+## Syntax and structure
 
 ### Framework
-- **Jest** (default no NestJS) com `@nestjs/testing`: `Test.createTestingModule()`.
-- Um `describe` por classe/ficheiro testado; `it` por cenário comportamental.
+- **Jest** (default in NestJS) with `@nestjs/testing`: `Test.createTestingModule()`.
+- One `describe` per tested class/file; `it` per behavioural scenario.
 
-### Setup e teardown
-- **beforeEach:** Criar o `TestingModule`, compilar, obter a instância do service/controller e dos mocks. Não partilhar estado entre testes.
-- **afterEach:** Chamar `jest.resetAllMocks()` para evitar que mocks de um teste afetem outro.
-- **beforeAll/afterAll:** Só se for estritamente necessário (ex.: custo alto de setup); preferir `beforeEach` para isolamento.
+### Setup and teardown
+- **beforeEach:** Create the `TestingModule`, compile, get the service/controller instance and mocks. Do not share state between tests.
+- **afterEach:** Call `jest.resetAllMocks()` to avoid mocks from one test affecting another.
+- **beforeAll/afterAll:** Only if strictly necessary (e.g. high setup cost); prefer `beforeEach` for isolation.
 
 ### Mocking
-- Dependências (repositórios, outros services) via `providers` com `useValue: { method: jest.fn() }`.
-- Para tipos: `jest.Mocked<Repository>` ou `jest.Mocked<SomeService>`.
-- Evitar excesso de mocks: testar o comportamento real da unidade; mockar só o que é externo.
+- Dependencies (repositories, other services) via `providers` with `useValue: { method: jest.fn() }`.
+- For types: `jest.Mocked<Repository>` or `jest.Mocked<SomeService>`.
+- Avoid excess mocks: test the unit's real behaviour; mock only what is external.
 
-### O que testar (unit)
-- **Services:** Lógica de negócio, transformações, validações (com dependências mockadas).
-- **Controllers:** Chamadas ao service e formato de resposta (service mockado; não testar HTTP real aqui — isso é integração).
-- **Guards, Pipes, Interceptors:** Comportamento isolado com inputs/saídas controlados.
-- **Não testar:** Modules (apenas configuração); métodos privados diretamente (testar via API pública).
+### What to test (unit)
+- **Services:** Business logic, transformations, validations (with mocked dependencies).
+- **Controllers:** Service calls and response format (service mocked; do not test real HTTP here — that is integration).
+- **Guards, Pipes, Interceptors:** Isolated behaviour with controlled inputs/outputs.
+- **Do not test:** Modules (config only); private methods directly (test via public API).
 
-### Nomes de testes
-- `it('should ...')` com verbo que descreve o comportamento esperado: "should hash the password before saving", "should return 404 when user not found".
-- Evitar nomes vagos como "works" ou "test create".
+### Test names
+- `it('should ...')` with a verb that describes the expected behaviour: "should hash the password before saving", "should return 404 when user not found".
+- Avoid vague names like "works" or "test create".
 
 ---
 
-## Regras rápidas
+## Quick rules
 
-| Regra | Detalhe |
+| Rule | Detail |
 |-------|--------|
-| Ficheiro | `*.spec.ts` junto ao ficheiro testado |
-| Comentários | Inglês, 1–2 linhas, objetivos; presentes mas sem exagero |
-| Dependências | Mockar com `useValue` e `jest.fn()` |
+| File | `*.spec.ts` next to the tested file |
+| Comments | English, 1–2 lines, objective; present but not excessive |
+| Dependencies | Mock with `useValue` and `jest.fn()` |
 | Reset | `afterEach(() => jest.resetAllMocks())` |
-| Isolamento | Testes independentes; não depender da ordem de execução |
-| Assertions | Validar comportamento e dados relevantes (ex.: password hasheada, valor retornado) |
+| Isolation | Independent tests; do not depend on execution order |
+| Assertions | Validate behaviour and relevant data (e.g. hashed password, returned value) |
 
 ---
 
-## Exemplo mínimo (service)
+## Minimal example (service)
 
-Ver [reference.md](reference.md) para exemplos completos com comentários (service, controller, guard) e boas práticas adicionais. Um template de partida para um service está em `assets/service.spec.template.ts`.
+See [reference.md](reference.md) for full examples with comments (service, controller, guard) and additional best practices. A starter template for a service is in `assets/service.spec.template.ts`.
