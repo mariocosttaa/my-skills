@@ -1,28 +1,76 @@
 # my-skills
 
-Cursor Agent Skills e Rules para personalizar o comportamento do AI.
+Colecção de **Cursor Agent Skills** — capacidades específicas para o editor [Cursor](https://cursor.com) que guiam o AI a seguir boas práticas e workflows em tarefas concretas (commits, Docker, NestJS, README, etc.).
+
+---
+
+## O que são Skills e Rules?
+
+| | Skills | Rules |
+|---|--------|--------|
+| **O que é** | Pacotes com instruções detalhadas que o agente usa *quando relevante* para o prompt | Regras curtas que correm *em cada prompt* (ou por ficheiro) |
+| **Carregamento** | Só são carregadas se o prompt indicar que são úteis | Sempre aplicadas (ou conforme `globs` / ficheiro em uso) |
+| **Estrutura** | Pasta com `SKILL.md` + opcional `reference.md`, `scripts/`, `assets/` | Ficheiro `.mdc` ou `.md` em `.cursor/rules/` |
+| **Exemplo** | `git-commits` — ajuda com commits e branching | `.cursor/rules/inline-comments.mdc` — comentários em inglês |
+
+Estas skills são **específicas para o Cursor** e seguem o formato [agentskills.io](https://agentskills.io).
+
+---
+
+## Onde colocar Skills
+
+| Âmbito | Directório |
+|--------|------------|
+| **Global** (todos os projectos) | `~/.cursor/skills/<nome-skill>/` |
+| **Projecto** (só este repo) | `.cursor/skills/<nome-skill>/` ou `.agents/skills/<nome-skill>/` |
+
+Exemplo para a pasta `git-commits`:
+
+- Global: `~/.cursor/skills/git-commits/`
+- Projecto: `.cursor/skills/git-commits/` (na raiz do repo)
+
+---
 
 ## Como fazer download de uma skill
 
-Cada skill tem a sua própria **branch**. Para descarregar só uma skill:
+Cada skill está numa **branch própria**, para poderes descarregar só o que precisas.
+
+### Exemplo: skill `git-commits`
 
 ```bash
-# Clonar e escolher a branch da skill
-git clone -b <skill-name> https://github.com/<user>/my-skills.git
+# Clonar o repo já na branch git-commits (só traz essa pasta)
+git clone -b git-commits https://github.com/mariocosttaa/my-skills.git
 cd my-skills
 ```
 
-Ou, se já tens o repo clonado:
+Ficas com:
+```
+my-skills/
+├── README.md
+└── git-commits/
+    ├── SKILL.md
+    ├── README.md
+    └── reference.md
+```
+
+### Instalar no Cursor (exemplo: git-commits)
 
 ```bash
-git fetch origin
-git checkout <skill-name>
+# Instalar globalmente
+cp -r git-commits ~/.cursor/skills/
+
+# Ou, para um projecto específico:
+mkdir -p .cursor/skills
+cp -r git-commits .cursor/skills/
 ```
+
+---
 
 ### Branches disponíveis
 
 | Branch | Skill |
 |--------|-------|
+| `main` | Todas as skills |
 | `create-cursor-skill` | Criar novas skills no Cursor |
 | `docker` | Docker, Dockerfile, docker-compose |
 | `gin-workflow` | Workflow GIN (Jira + repositório) |
@@ -32,18 +80,14 @@ git checkout <skill-name>
 | `nestjs-integration-tests` | Testes de integração NestJS |
 | `nestjs-unit-tests` | Testes unitários NestJS |
 
-A branch `main` contém todas as skills.
-
-## Instalação no Cursor
-
-Depois de descarregar, copia a pasta da skill para:
-
-- **Global:** `~/.cursor/skills/<skill-name>/`
-- **Por projeto:** `.cursor/skills/<skill-name>/` ou `.agents/skills/<skill-name>/`
-
-Exemplo:
+Para outra skill, troca `git-commits` pelo nome da branch, ex.:
 
 ```bash
-# Instalar docker skill globalmente
-cp -r docker ~/.cursor/skills/
+git clone -b docker https://github.com/mariocosttaa/my-skills.git
 ```
+
+---
+
+## Repositório
+
+[https://github.com/mariocosttaa/my-skills](https://github.com/mariocosttaa/my-skills)
