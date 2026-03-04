@@ -10,42 +10,42 @@ description: >
 
 # Git Commits & Branching
 
-Skill para mensagens de commit consistentes, agrupamento de ficheiros e fluxo de branches (checkout com alterações, push para feature branch). Baseada em Conventional Commits e boas práticas de branching.
+Skill for consistent commit messages, file grouping and branch flow (checkout with changes, push to feature branch). Based on Conventional Commits and branching best practices.
 
 ---
 
-## Antes de agir: perguntar
+## Before acting: ask
 
-1. **Idioma dos commits** — Perguntar sempre: "Queres as mensagens de commit em inglês ou noutra língua?" antes de redigir ou sugerir mensagens. Não assumir inglês por defeito.
-2. **Em caso de dúvida** — Se não tiveres a certeza (ex.: como agrupar ficheiros, que tipo usar, se fazer um ou vários commits), **pergunta ao utilizador** em vez de avançar. Só avança sem perguntar se o utilizador disser explicitamente para "fazer" ou "aplicar" sem mais detalhes.
-
----
-
-## Agrupamento de alterações (guideline, não rígido)
-
-### Foco por commit
-- **Agrupar ficheiros relacionados** que formam uma alteração lógica completa.
-- **Manter cada commit focado** numa única mudança (atomic commits).
-- **Não misturar** alterações não relacionadas no mesmo commit.
-
-**Número de ficheiros:** Não há máximo fixo. Um valor de referência é ~5 ficheiros por commit quando faz sentido (ex.: Model + Resource + Controller + Request + Component da mesma feature). O limite é **subjetivo** e depende do diff: muitas alterações pequenas e relacionadas podem justificar um único commit; poucos ficheiros mas com mudanças muito distintas devem ser commits separados.
-
-### Agrupar no mesmo commit quando:
-- Mesma feature (ex.: Model + Resource + Controller + Request + Component).
-- Correções de bug relacionadas em vários ficheiros.
-- Refactor que afeta vários componentes relacionados.
-
-### Commits separados quando:
-- Bug fix isolado.
-- Atualizações de documentação.
-- Alterações de estilo.
-- Features ou fixes não relacionados.
+1. **Commit language** — Always ask: "Do you want commit messages in English or another language?" before drafting or suggesting messages. Do not assume English by default.
+2. **When in doubt** — If unsure (e.g. how to group files, which type to use, one or several commits), **ask the user** instead of proceeding. Only proceed without asking if the user explicitly says to "do it" or "apply" without further details.
 
 ---
 
-## Formato da mensagem de commit
+## Change grouping (guideline, not strict)
 
-### Estrutura (Conventional Commits + corpo em bullets)
+### Focus per commit
+- **Group related files** that form a complete logical change.
+- **Keep each commit focused** on a single change (atomic commits).
+- **Do not mix** unrelated changes in the same commit.
+
+**Number of files:** There is no fixed maximum. A reference value is ~5 files per commit when it makes sense (e.g. Model + Resource + Controller + Request + Component for the same feature). The limit is **subjective** and depends on the diff: many small related changes can justify a single commit; few files with very different changes should be separate commits.
+
+### Group in the same commit when:
+- Same feature (e.g. Model + Resource + Controller + Request + Component).
+- Related bug fixes in several files.
+- Refactor affecting several related components.
+
+### Separate commits when:
+- Isolated bug fix.
+- Documentation updates.
+- Style changes.
+- Unrelated features or fixes.
+
+---
+
+## Commit message format
+
+### Structure (Conventional Commits + bullet body)
 
 ```
 type[(scope)]: brief description
@@ -54,32 +54,32 @@ type[(scope)]: brief description
 - keep it concise and clear
 ```
 
-- **type** (obrigatório): ver lista abaixo.
-- **scope** (opcional): parte do codebase afetada, ex. `feat(auth):`, `fix(api):`.
-- **description**: resumo curto em modo imperativo ("add" não "added"); idioma conforme combinado com o utilizador (EN ou outro).
-- **body** (opcional): bullets ou parágrafos com detalhe; usar bullets por ficheiro/alteração quando útil.
+- **type** (required): see list below.
+- **scope** (optional): part of the codebase affected, e.g. `feat(auth):`, `fix(api):`.
+- **description**: short summary in imperative mood ("add" not "added"); language as agreed with the user (EN or other).
+- **body** (optional): bullets or paragraphs with detail; use bullets per file/change when useful.
 
-### Tipos (Conventional Commits)
-- `feat:` Nova funcionalidade (MINOR em SemVer).
-- `fix:` Correção de bug (PATCH em SemVer).
-- `docs:` Documentação.
-- `style:` Formatação/estilo (sem mudança de lógica).
-- `refactor:` Refatoração.
+### Types (Conventional Commits)
+- `feat:` New feature (MINOR in SemVer).
+- `fix:` Bug fix (PATCH in SemVer).
+- `docs:` Documentation.
+- `style:` Formatting/style (no logic change).
+- `refactor:` Refactoring.
 - `perf:` Performance.
-- `test:` Testes.
-- `ci:` Configuração CI/CD.
-- `build:` Build ou dependências.
-- `chore:` Manutenção, configs, tarefas gerais.
+- `test:` Tests.
+- `ci:` CI/CD configuration.
+- `build:` Build or dependencies.
+- `chore:` Maintenance, configs, general tasks.
 
 ### Breaking changes
-- No **footer**: `BREAKING CHANGE: descrição`.
-- Ou no prefixo: `feat(api)!: descrição` (o `!` antes dos `:`).
+- In **footer**: `BREAKING CHANGE: description`.
+- Or in prefix: `feat(api)!: description` (the `!` before the `:`).
 
 ---
 
-## Exemplos de mensagens
+## Message examples
 
-### Bom — ficheiros relacionados
+### Good — related files
 ```
 feat: implement user management CRUD
 
@@ -90,14 +90,14 @@ feat: implement user management CRUD
 - Update PanelUsersController
 ```
 
-### Bom — um ficheiro
+### Good — single file
 ```
 fix: resolve date parsing in booking calendar
 
 - Fix timezone handling in DateSelectionCalendar.tsx
 ```
 
-### Bom — com scope e breaking change
+### Good — with scope and breaking change
 ```
 feat(api)!: require auth for all endpoints
 
@@ -107,7 +107,7 @@ feat(api)!: require auth for all endpoints
 BREAKING CHANGE: unauthenticated requests now return 401
 ```
 
-### Mau — muitos temas no mesmo commit
+### Bad — many unrelated topics in one commit
 ```
 feat: various improvements
 
@@ -117,21 +117,21 @@ feat: various improvements
 - Refactor modal components
 ```
 
-### Mau — descrição vaga
+### Bad — vague description
 ```
 fix: stuff
 ```
 
 ---
 
-## Workflow antes de commitar
+## Workflow before committing
 
-1. Ver que ficheiros mudaram: `git status` (e opcionalmente `git diff`).
-2. Agrupar ficheiros relacionados (respeitando a guideline de foco).
-3. Escrever mensagem clara no formato acima (no idioma acordado).
-4. Testar as alterações antes de commitar.
+1. See which files changed: `git status` (and optionally `git diff`).
+2. Group related files (following the focus guideline).
+3. Write a clear message in the format above (in the agreed language).
+4. Test changes before committing.
 
-### Comandos úteis
+### Useful commands
 ```bash
 git status
 git add file1.php file2.php file3.php
@@ -144,57 +144,57 @@ git push origin <branch-name>
 
 ---
 
-## Branching: levar alterações para outra branch e push
+## Branching: carry changes to another branch and push
 
-Quando o utilizador quer **mudar de branch mas levar alterações** (não commitadas) para uma branch de feature e fazer push:
+When the user wants to **switch branch but take changes** (uncommitted) to a feature branch and push:
 
-### Opção A — alterações já commitadas
-- Fazer checkout da branch de destino (ex.: feature/xyz).
-- Se as alterações foram feitas noutra branch: fazer merge ou rebase dessa branch em feature/xyz, depois `git push origin feature/xyz`.
+### Option A — changes already committed
+- Checkout the target branch (e.g. feature/xyz).
+- If changes were made on another branch: merge or rebase that branch into feature/xyz, then `git push origin feature/xyz`.
 
-### Opção B — alterações ainda não commitadas (stash)
-1. Guardar alterações: `git stash push -u -m "descrição breve"` (inclui untracked com `-u`).
-2. Mudar de branch: `git checkout feature/nome-da-feature` (ou `git switch feature/nome-da-feature`).
-3. Aplicar o stash: `git stash pop` (ou `git stash apply` para manter o stash).
-4. Resolver conflitos se aparecerem.
-5. Commitar e push: `git add ...`, `git commit -m "..."`, `git push origin feature/nome-da-feature`.
+### Option B — changes not yet committed (stash)
+1. Save changes: `git stash push -u -m "brief description"` (includes untracked with `-u`).
+2. Switch branch: `git checkout feature/feature-name` (or `git switch feature/feature-name`).
+3. Apply stash: `git stash pop` (or `git stash apply` to keep the stash).
+4. Resolve conflicts if any.
+5. Commit and push: `git add ...`, `git commit -m "..."`, `git push origin feature/feature-name`.
 
-### Nomes de branches (boas práticas)
-- `feature/descricao` — nova funcionalidade.
-- `bugfix/descricao` ou `fix/descricao` — correção de bug.
-- `docs/descricao` — documentação.
-- Evitar commits diretos em `main`/`master`; usar feature branches e merge/PR.
+### Branch names (best practices)
+- `feature/description` — new feature.
+- `bugfix/description` or `fix/description` — bug fix.
+- `docs/description` — documentation.
+- Avoid direct commits to `main`/`master`; use feature branches and merge/PR.
 
-### Antes de push
-- Atualizar a branch com o remoto se necessário: `git pull origin <branch> --rebase` (ou `git pull` conforme fluxo do projeto).
-- Evitar `git commit --amend` em commits já pushed (quebra histórico partilhado).
-
----
-
-## Boas práticas
-
-### Fazer
-- Commits atómicos (uma mudança lógica por commit).
-- Mensagens descritivas no formato type: description (+ body).
-- Testar antes de commitar.
-- Usar o idioma acordado para mensagens.
-- Branching por feature/fix; push para a branch correta.
-
-### Evitar
-- Muitos ficheiros não relacionados no mesmo commit.
-- Mensagens vagas ("fix", "update").
-- Misturar features e fixes no mesmo commit.
-- Commitar sem testar.
-- Amend em commits já pushed sem acordo de equipa.
+### Before push
+- Update branch with remote if needed: `git pull origin <branch> --rebase` (or `git pull` per project flow).
+- Avoid `git commit --amend` on already pushed commits (breaks shared history).
 
 ---
 
-## Checklist rápido antes de commitar
+## Best practices
 
-- [ ] Estes ficheiros são relacionados? (foco por commit)
-- [ ] A mensagem está clara e no formato type: description?
-- [ ] Usei o idioma combinado (EN ou outro)?
-- [ ] Testei as alterações?
-- [ ] O commit corresponde a uma única mudança lógica?
+### Do
+- Atomic commits (one logical change per commit).
+- Descriptive messages in type: description (+ body) format.
+- Test before committing.
+- Use the agreed language for messages.
+- Branch per feature/fix; push to the correct branch.
 
-Quando houver dúvida: perguntar ao utilizador. Para mais detalhe (Conventional Commits, SemVer, revert), ver [reference.md](reference.md).
+### Avoid
+- Many unrelated files in the same commit.
+- Vague messages ("fix", "update").
+- Mixing features and fixes in the same commit.
+- Committing without testing.
+- Amend on already pushed commits without team agreement.
+
+---
+
+## Quick checklist before committing
+
+- [ ] Are these files related? (focus per commit)
+- [ ] Is the message clear and in type: description format?
+- [ ] Did I use the agreed language (EN or other)?
+- [ ] Did I test the changes?
+- [ ] Does the commit correspond to a single logical change?
+
+When in doubt: ask the user. For more detail (Conventional Commits, SemVer, revert), see [reference.md](reference.md).

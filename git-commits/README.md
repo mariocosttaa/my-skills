@@ -1,26 +1,30 @@
 # Skill: git-commits
 
-Skill do Cursor para **mensagens de commit** e **fluxo de branches**: agrupamento de ficheiros, formato Conventional Commits, e workflow de checkout/stash/push para feature branches.
+Cursor skill for **commit messages** and **branch flow**: file grouping, Conventional Commits format, and checkout/stash/push workflow for feature branches.
 
-## Quando usar
+## When to use
 
-- Escrever ou rever mensagens de commit.
-- Decidir como agrupar ficheiros em commits.
-- Mudar de branch levando alterações (stash → checkout → pop → commit → push).
-- Seguir regras de commits do repositório.
+- Writing or reviewing commit messages.
+- Deciding how to group files into commits.
+- Switching branch while carrying changes (stash → checkout → pop → commit → push).
+- Following repository commit rules.
 
-## Conteúdo principal (SKILL.md)
+## Main content (SKILL.md)
 
-- Perguntar idioma dos commits (EN ou outro) e, em dúvida, perguntar antes de agir.
-- Guideline de agrupamento (foco por commit; número de ficheiros subjetivo).
-- Formato: `type[(scope)]: description` + body em bullets.
-- Tipos: feat, fix, docs, style, refactor, perf, test, ci, build, chore.
-- Exemplos bons e maus.
-- Workflow: stash → checkout → pop → commit → push para feature branch.
-- Checklist antes de commitar.
+- Ask commit language (EN or other) and, when in doubt, ask before acting.
+- Grouping guideline (focus per commit; file count subjective).
+- Format: `type[(scope)]: description` + bullet body.
+- Types: feat, fix, docs, style, refactor, perf, test, ci, build, chore.
+- Good and bad examples.
+- Workflow: stash → checkout → pop → commit → push for feature branch.
+- Pre-commit checklist.
 
-## Ficheiros
+## Files
 
-- **SKILL.md** — Instruções para o agente.
-- **reference.md** — Conventional Commits, SemVer, revert, estratégias de branch.
-- **README.md** — Este ficheiro (para humanos; não injetado no agente).
+- **SKILL.md** — Agent instructions.
+- **reference.md** — Conventional Commits, SemVer, revert, branch strategies.
+- **README.md** — This file (for humans; not injected into the agent).
+
+## Source
+
+From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills): `git clone -b git-commits https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/git-commits ~/.cursor/skills/`
