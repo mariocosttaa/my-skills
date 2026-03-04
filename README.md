@@ -68,18 +68,18 @@ cp -r git-commits .cursor/skills/
 
 ### Branches disponíveis
 
-| Branch | Skill |
-|--------|-------|
-| `main` | Todas as skills |
-| `create-cursor-skill` | Criar novas skills no Cursor |
-| `create-workflow` | Criar skills de workflow (genérico ou repo-specific) |
-| `docker` | Docker, Dockerfile, docker-compose |
-| `gin-workflow` | Workflow GIN (Jira + repositório) |
-| `git-commits` | Mensagens de commit e branching |
-| `github-readme` | README do GitHub |
-| `nestjs-e2e-tests` | E2E com Playwright (NestJS) |
-| `nestjs-integration-tests` | Testes de integração NestJS |
-| `nestjs-unit-tests` | Testes unitários NestJS |
+| Branch | Skill | Versão inicial | Versão actual |
+|--------|-------|----------------|---------------|
+| `main` | Todas as skills | `b45ce13` | `ac3f89f` |
+| `create-cursor-skill` | Criar novas skills no Cursor | `4a634b5` | `4a634b5` |
+| `create-workflow` | Criar skills de workflow (genérico ou repo-specific) | `eb671db` | `eb671db` |
+| `docker` | Docker, Dockerfile, docker-compose | `49a89fd` | `49a89fd` |
+| `gin-workflow` | Workflow GIN (Jira + repositório) | `498970e` | `498970e` |
+| `git-commits` | Mensagens de commit e branching | `4d86d2d` | `4d86d2d` |
+| `github-readme` | README do GitHub | `4925a9b` | `4925a9b` |
+| `nestjs-e2e-tests` | E2E com Playwright (NestJS) | `21158b2` | `21158b2` |
+| `nestjs-integration-tests` | Testes de integração NestJS | `0d0f761` | `0d0f761` |
+| `nestjs-unit-tests` | Testes unitários NestJS | `751baff` | `751baff` |
 
 Para outra skill, troca `git-commits` pelo nome da branch, ex.:
 
