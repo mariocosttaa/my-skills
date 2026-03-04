@@ -5,7 +5,7 @@ description: >
   a new skill, asks "how do I create a skill", "skill structure", "SKILL.md format", "where to put
   skills", or needs the full file structure, directory layout, frontmatter rules, optional .mdc rules
   context, README for skills, and best practices. Requires using Plan mode (Build) first to gather
-  all requirements before implementing. Covers .agents/skills, .cursor/skills, SKILL.md frontmatter,
+  requirements via questions and overview before implementing. Covers .agents/skills, .cursor/skills, SKILL.md frontmatter,
   references/, scripts/, assets/, and when to use skills vs .cursor/rules (.mdc).
 ---
 
@@ -15,21 +15,30 @@ Guia para criar Agent Skills no Cursor seguindo o padrão oficial (agentskills.i
 
 ---
 
-## Antes de implementar: usar modo Plan (Build)
+## Obrigatório: perguntas antes de começar
 
-**Obrigatório** antes de criar ou escrever ficheiros da skill: garantir que se recolheu todo o contexto necessário.
+**Não criar nenhum ficheiro** até responder a estas perguntas e apresentar um overview ao utilizador. Perguntar em linguagem natural (não em lista seca); se faltar contexto, pedir esclarecimento antes de avançar.
 
-1. **Sugerir ao utilizador** mudar para **Plan mode** no Cursor (`Cmd+.` / `Ctrl+.` → Plan, ou rotação com `Shift+Tab`) para a fase de descoberta.
-2. No Plan mode (ou na primeira troca de mensagens), **recolher**:
-   - Propósito e âmbito da skill (que tarefa/workflow cobre?)
-   - Onde guardar: projeto (`.cursor/skills/` ou `.agents/skills/`) vs utilizador (`~/.cursor/skills/`)
-   - Cenários de ativação (quando o agente deve aplicar a skill)
-   - Conhecimento de domínio necessário (o que o agente não sabe à partida)
-   - Preferências de formato de saída (templates, estilo)
-   - Exemplos ou convenções existentes a seguir
-3. **Só depois** de ter requisitos claros (e, se aplicável, plano revisto pelo utilizador), passar à implementação no Agent mode — criar pasta, SKILL.md, reference.md, README, etc.
+### Perguntas a fazer
 
-Não avançar para criar ficheiros até que esta fase de descoberta esteja feita; caso falte informação, perguntar antes de continuar.
+1. **Propósito** — Que tarefa ou workflow específico vai cobrir esta skill? O que o utilizador espera que o agente saiba fazer?
+2. **Âmbito** — Onde será usada: só neste projeto (`.cursor/skills/` ou `.agents/skills/`) ou globalmente (`~/.cursor/skills/`)?
+3. **Ativação** — Em que situações o agente deve carregar esta skill? (ex.: "quando o utilizador mencionar Excel, PDF, deploy, etc.")
+4. **Conhecimento** — Que informação o agente não sabe à partida e precisa de ter na skill?
+5. **Formato** — Há templates, convenções ou exemplos existentes a seguir?
+6. **Nome** — Nome sugerido para a skill (lowercase, hífens; ex.: `excel-reports`, `docker-deploy`).
+
+### Overview antes de implementar
+
+Depois de recolher as respostas, **mostrar ao utilizador** um resumo do que será criado, por exemplo:
+
+- **Nome da skill:** `exemplo-skill`
+- **Localização:** `~/.cursor/skills/exemplo-skill/` (ou path do projeto)
+- **Ficheiros a criar:** SKILL.md, reference.md (opcional), README.md (opcional)
+- **Conteúdo principal:** breve descrição do que as instruções vão cobrir
+- **Termos de ativação:** ex.: "Use when the user mentions X, Y, Z"
+
+Só avançar para criar ficheiros **após confirmação** do utilizador (explícita ou implícita, ex.: "sim, avança").
 
 ---
 
@@ -134,7 +143,7 @@ description: >
 
 ## Checklist antes de publicar
 
-- [ ] Fase de descoberta feita (Plan/Build mode ou perguntas explícitas); requisitos claros antes de implementar
+- [ ] Perguntas obrigatórias feitas; overview apresentado ao utilizador; confirmação antes de implementar
 - [ ] `name` em lowercase com hífens, pasta com o mesmo nome
 - [ ] `description` em terceira pessoa, com termos de ativação
 - [ ] SKILL.md com instruções claras e passos concretos

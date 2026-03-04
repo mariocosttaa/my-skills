@@ -72,6 +72,7 @@ cp -r git-commits .cursor/skills/
 |--------|-------|
 | `main` | Todas as skills |
 | `create-cursor-skill` | Criar novas skills no Cursor |
+| `create-workflow` | Criar skills de workflow (genérico ou repo-specific) |
 | `docker` | Docker, Dockerfile, docker-compose |
 | `gin-workflow` | Workflow GIN (Jira + repositório) |
 | `git-commits` | Mensagens de commit e branching |
