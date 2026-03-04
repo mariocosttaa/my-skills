@@ -13,6 +13,28 @@ Skill para criar, editar e gerir Dockerfiles e docker-compose de forma segura e 
 
 ---
 
+## Obrigatório: perguntas antes de criar ou editar
+
+**Não criar ou alterar ficheiros Docker** até esclarecer o contexto. Perguntar ao utilizador:
+
+1. **Stack** — Que serviços existem ou devem existir? (ex.: API NestJS, Postgres, Redis, workers, frontend estático)
+2. **Ambiente** — Só local, só produção, ou ambos? Se ambos, como se distinguem (override files, pasta `docker/`)?
+3. **Estado actual** — Já existe `.env`, `.env.example`, `docker-compose.yml` ou Dockerfile? O que falta ou precisa de ser corrigido?
+4. **Segredos** — Há ports, passwords ou API keys em claro que devem ir para `.env`?
+
+### Overview antes de implementar
+
+Após recolher as respostas, **mostrar ao utilizador** o que será feito:
+
+- Ficheiros a criar ou alterar (ex.: `.env.example`, `docker-compose.yml`, `Dockerfile`)
+- Estrutura proposta (ex.: base + override para local/prod)
+- Variáveis que irão para `.env`
+- Comandos sugeridos (ex.: `cp .env.example .env && docker compose up -d`)
+
+Só avançar após confirmação ou pedido explícito de execução.
+
+---
+
 ## Princípios gerais
 
 1. **Nunca** colocar ports, passwords, API keys ou outros segredos em valores estáticos no Compose ou Dockerfile.
