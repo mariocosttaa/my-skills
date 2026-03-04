@@ -68,24 +68,22 @@ cp -r git-commits .cursor/skills/
 
 ### Branches disponíveis
 
-| Branch | Skill | Versão inicial | Versão actual |
-|--------|-------|----------------|---------------|
-| `main` | Todas as skills | `b45ce13` | `ac3f89f` |
-| `create-cursor-skill` | Criar novas skills no Cursor | `4a634b5` | `4a634b5` |
-| `create-workflow` | Criar skills de workflow (genérico ou repo-specific) | `eb671db` | `eb671db` |
-| `docker` | Docker, Dockerfile, docker-compose | `49a89fd` | `49a89fd` |
-| `gin-workflow` | Workflow GIN (Jira + repositório) | `498970e` | `498970e` |
-| `git-commits` | Mensagens de commit e branching | `4d86d2d` | `4d86d2d` |
-| `github-readme` | README do GitHub | `4925a9b` | `4925a9b` |
-| `nestjs-e2e-tests` | E2E com Playwright (NestJS) | `21158b2` | `21158b2` |
-| `nestjs-integration-tests` | Testes de integração NestJS | `0d0f761` | `0d0f761` |
-| `nestjs-unit-tests` | Testes unitários NestJS | `751baff` | `751baff` |
+A versão começa em **1.0** e incrementa com cada commit. Cada skill tem a sua branch; o comando de instalação copia a pasta para `~/.cursor/skills/`.
 
-Para outra skill, troca `git-commits` pelo nome da branch, ex.:
+| Branch | Skill | v. inicial | v. actual | Instalar (copiar) |
+|--------|-------|------------|-----------|-------------------|
+| `main` | Todas as skills | 1.0 | 1.6 | `git clone https://github.com/mariocosttaa/my-skills.git && cd my-skills && cp -r create-* docker gin-workflow git-* github-readme nestjs-* ~/.cursor/skills/` |
+| `create-cursor-skill` | Criar novas skills no Cursor | 1.0 | 1.5 | `git clone -b create-cursor-skill https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/create-cursor-skill ~/.cursor/skills/` |
+| `create-workflow` | Criar skills de workflow (genérico ou repo-specific) | 1.0 | 1.6 | `git clone -b create-workflow https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/create-workflow ~/.cursor/skills/` |
+| `docker` | Docker, Dockerfile, docker-compose | 1.0 | 1.5 | `git clone -b docker https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/docker ~/.cursor/skills/` |
+| `gin-workflow` | Workflow GIN (Jira + repositório) | 1.0 | 1.3 | `git clone -b gin-workflow https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/gin-workflow ~/.cursor/skills/` |
+| `git-commits` | Mensagens de commit e branching | 1.0 | 1.3 | `git clone -b git-commits https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/git-commits ~/.cursor/skills/` |
+| `github-readme` | README do GitHub | 1.0 | 1.3 | `git clone -b github-readme https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/github-readme ~/.cursor/skills/` |
+| `nestjs-e2e-tests` | E2E com Playwright (NestJS) | 1.0 | 1.3 | `git clone -b nestjs-e2e-tests https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/nestjs-e2e-tests ~/.cursor/skills/` |
+| `nestjs-integration-tests` | Testes de integração NestJS | 1.0 | 1.3 | `git clone -b nestjs-integration-tests https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/nestjs-integration-tests ~/.cursor/skills/` |
+| `nestjs-unit-tests` | Testes unitários NestJS | 1.0 | 1.3 | `git clone -b nestjs-unit-tests https://github.com/mariocosttaa/my-skills.git && cp -r my-skills/nestjs-unit-tests ~/.cursor/skills/` |
 
-```bash
-git clone -b docker https://github.com/mariocosttaa/my-skills.git
-```
+Para instalar **por projecto** em vez de global, troca `~/.cursor/skills/` por `.cursor/skills/` (na raiz do repo).
 
 ---
 

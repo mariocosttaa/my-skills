@@ -1,112 +1,144 @@
 ---
 name: gin-workflow
-description: Planificação e execução rápida do fluxo de trabalho por requisito no projeto GIN (Jira + repositório). Usar quando o utilizador indicar um requisito Jira (ex. GIN-AZ-42), pedir para criar/abrir uma feature, escrever requisitos.md ou implementacao.md, atualizar o README, ou seguir o workflow de desenvolvimento por requisito. Ao trabalhar no README, usar a skill github-readme para mantê-lo simples e organizado e ligar aos ficheiros requisitos.md e implementacao.md.
+description: >
+  Planificação e execução do fluxo de trabalho por requisito no projeto GIN (Jira + repositório).
+  Usar quando o utilizador indicar um requisito Jira (ex. GIN-AZ-42), pedir para criar/abrir uma
+  feature, escrever requisitos.md, plan.md, tasks.md, suggestions.md ou overview.md, atualizar o
+  README, ou seguir o workflow. A skill deve ser lida no início (setup) e durante (preenchimento).
+  Ao trabalhar no README, usar a skill github-readme.
 ---
 
-# GIN Workflow — Requisito → Implementação
+# GIN Workflow — Requisito → Plano → Tarefas → Overview
 
-Fluxo de trabalho por requisito: do registo no Jira até à integração no repositório. Os ficheiros `requisitos.md` e `implementacao.md` são **sempre em português de Portugal** e fazem parte permanente do repositório.
+Fluxo de trabalho por requisito no repositório. *Contexto:* o requisito vem do Jira (ex.: GIN-AZ-42); o utilizador gere o Kanban e o PR. A skill deve ser **relida no início** (setup) e **durante** (preenchimento). Ficheiros: `requisitos.md`, `plan.md`, `tasks.md`, `overview.md`; `suggestions.md` é opcional.
 
-## Ciclo de vida do requisito (referência)
+---
 
-| Passo | Onde | O que fazer |
-|-------|------|-------------|
-| 1 | Jira | Registar o requisito como issue; anotar o código (ex.: GIN-AZ-42). |
-| 2 | Jira/Kanban | Ao iniciar desenvolvimento, mover a issue para "Em progresso". |
-| 3 | Repositório | Criar a feature branch: `git checkout -b GIN-AZ-42`. |
-| 4 | Repositório | Criar o directório da feature: `/GIN-AZ-42/`. |
-| 5 | Ficheiro .md | Criar `GIN-AZ-42/requisitos.md` com a descrição do requisito (pt-PT). |
-| 6 | Código | Implementar; commits granulares e descritivos na branch. |
-| 7 | Ficheiro .md | Ao concluir, preencher/organizar `GIN-AZ-42/implementacao.md` (pt-PT). |
-| 8 | Jira + Repo | Mover a issue para "Concluído"; abrir pull request. |
+## Fase 1: Início (setup)
+
+Branch, directório, requisitos, estrutura e README.
+
+| Passo | O que fazer |
+|-------|-------------|
+| 1 | Criar a feature branch: `git checkout -b GIN-AZ-42`. |
+| 2 | Criar o directório da feature: `/<código-jira>/`. |
+| 3 | Criar `requisitos.md` com a descrição do requisito (pt-PT). |
+| 4 | Criar `plan.md`, `tasks.md`, `overview.md` (templates ou vazios); opcionalmente `suggestions.md`. |
+| 5 | Actualizar o README com a secção da nova feature e links para os ficheiros. |
+
+---
+
+## Fase 2: Durante (preenchimento)
+
+Plan, tasks, suggestions e overview ao longo da implementação.
+
+| Ficheiro | Quando preencher |
+|----------|------------------|
+| `plan.md` | Durante: abordagem, decisões, ordem de trabalho. |
+| `tasks.md` | Durante: marcar `[x]` conforme se avança; adicionar tarefas se necessário. |
+| `suggestions.md` | Durante (opcional): melhorias ou correções vistas que não dependem do requisito. |
+| `overview.md` | Ao concluir: resumo final do implementado. |
+
+---
+
+## Os ficheiros
+
+| Ficheiro | Obrigatório | Propósito |
+|----------|-------------|-----------|
+| `requisitos.md` | ✅ | Descrição do requisito, critérios de aceitação. |
+| `plan.md` | ✅ | Plano de execução; preencher durante a implementação. |
+| `tasks.md` | ✅ | Checklist `[ ]` / `[x]`; actualizar durante. |
+| `overview.md` | ✅ | Resumo final (preencher ao concluir). |
+| `suggestions.md` | Opcional | Erros encontrados e sugestões que não dependem do requisito; com referência e local. |
+
+### suggestions.md (opcional)
+
+Regista **erros encontrados** e **sugestões** durante a implementação que **não fazem parte do requisito atual**. Secções: Erros encontrados, Sugestões de melhoria, Outras notas. Tabela com colunas *Local* (ficheiro/path/linha), *Descrição* e *Objectivo*. Ver [assets/suggestions.template.md](assets/suggestions.template.md).
+
+---
+
+## Formato de `tasks.md`
+
+Cada tarefa é uma linha com `[ ]` (por fazer) ou `[x]` (concluída). Uma linha em branco entre tarefas. Opcionalmente, uma descrição curta abaixo da tarefa.
+
+```markdown
+[x] - Criar endpoint de validação de email
+
+[ ] - Adicionar testes unitários
+
+Implementar com Jest, mock do repositório.
+
+[ ] - Actualizar documentação da API
+```
+
+**Regras:**
+- `[ ]` = tarefa por fazer; `[x]` = tarefa concluída.
+- Linha em branco entre cada tarefa.
+- Abaixo da tarefa (opcional): descrição curta numa ou mais linhas, antes da próxima tarefa.
+- Actualizar `tasks.md` à medida que se avança; marcar `[x]` quando a tarefa estiver feita.
 
 ---
 
 ## Comportamento do agente
 
-### Quando o utilizador entrega o requisito
+### Fase 1: Início (setup) — quando o utilizador entrega o requisito
 
 1. **Identificar o código Jira** (ex.: GIN-AZ-42). Se não for dado, perguntar.
-2. **Criar a estrutura** (se ainda não existir):
-   - Branch: `git checkout -b GIN-AZ-42` (a partir da branch de desenvolvimento adequada).
+2. **Criar a estrutura**:
+   - Branch: `git checkout -b GIN-AZ-42`.
    - Directório: `/<código-jira>/` (ex.: `/GIN-AZ-42/`).
-3. **Criar `requisitos.md`** dentro desse directório:
-   - Conteúdo: **Descrição do requisito** em pt-PT (texto que o utilizador forneceu ou que migraste do documento de requisitos).
-   - Formato livre mas claro; pode usar secções (objectivo, critérios de aceitação, notas).
-4. **Criar `implementacao.md`** no mesmo directório:
-   - Inicialmente **vazio** ou com apenas o cabeçalho/template mínimo abaixo.
-5. Confirmar ao utilizador: directório criado, `requisitos.md` com a descrição, `implementacao.md` vazio/pronto a preencher.
+3. **Criar os ficheiros** dentro desse directório:
+   - `requisitos.md` — descrição do requisito em pt-PT.
+   - `plan.md` — template ou vazio (a preencher durante).
+   - `tasks.md` — checklist inicial com `[ ]`; derivar do requisito.
+   - `overview.md` — vazio ou com cabeçalho (a preencher ao concluir).
+   - `suggestions.md` — opcional, vazio (a preencher durante).
+4. **Actualizar o README** com a secção da nova feature.
+5. Confirmar ao utilizador: directório criado, ficheiros criados, README actualizado.
 
-### Durante a implementação
+### Fase 2: Durante (preenchimento) — durante a implementação
 
-- O utilizador pode dar indicações, restrições ou preferências; o agente pode perguntar quando for útil.
-- **Atualizar `implementacao.md`** à medida que se implementa: o que foi feito, decisões técnicas, ficheiros alterados, notas.
-- Manter commits granulares e mensagens descritivas na branch da feature.
+- **plan.md**: Preencher abordagem, decisões, ordem de trabalho; actualizar se o plano mudar.
+- **tasks.md**: Marcar `[x]` quando concluída; adicionar descrições curtas abaixo das tarefas; adicionar novas tarefas se necessário.
+- **suggestions.md** (opcional): Registar erros encontrados e sugestões; indicar sempre o local (ficheiro/path) e o objectivo.
+- Commits granulares e mensagens descritivas na branch da feature.
 
 ### Ao concluir a implementação
 
-- **Revisar e organizar `implementacao.md`**: tornar o texto conciso e estruturado (resumo do implementado, alterações principais, notas para consulta futura).
-- Garantir que está em **português de Portugal**.
-- Não remover informação importante; apenas organizar e resumir.
-- **Atualizar o README** do repositório (ver secção abaixo).
+- **Revisar `tasks.md`**: tarefas relevantes com `[x]`.
+- **Preencher `overview.md`**: resumo conciso do implementado (pt-PT).
+- **Actualizar o README** se necessário.
 
 ---
 
 ## README do repositório
 
-- **Quando:** Ao criar uma nova feature (directório + `requisitos.md`/`implementacao.md`) ou ao concluir implementação, o agente deve **propor ou aplicar alterações ao README** para que este continue simples e organizado.
-- **Como:** Usar a skill **github-readme** ao trabalhar no README: seguir a sua estrutura (descrição, quick start, secções claras) e tom. Perguntar antes de reescrever o README inteiro, conforme essa skill.
-- **Conteúdo obrigatório no README:** Incluir uma secção que **refira ou ligue** aos ficheiros de requisito e implementação por feature, por exemplo:
-  - **"Requisitos e implementação"** (ou nome equivalente): indicar que cada feature tem a sua pasta (ex.: `GIN-AZ-42/`) com:
-    - `requisitos.md` — descrição do requisito (pt-PT);
-    - `implementacao.md` — resumo do que foi implementado (pt-PT).
-  - Opcionalmente: lista ou tabela com links para cada feature, e.g. `[GIN-AZ-42](GIN-AZ-42/requisitos.md)` e `[Implementação GIN-AZ-42](GIN-AZ-42/implementacao.md)`, ou instrução clara do tipo "em cada pasta `<código-jira>/` existem `requisitos.md` e `implementacao.md`".
-- Objetivo: quem abre o repositório encontra no README a explicação do projeto e, na mesma secção ou próxima, onde estão os requisitos e a documentação de implementação.
+- **Quando:** Ao criar uma nova feature ou ao concluir implementação.
+- **Como:** Usar a skill **github-readme**; perguntar antes de reescrever o README inteiro.
+- **Conteúdo obrigatório:** Secção que refira os ficheiros por feature:
+  - `requisitos.md`, `plan.md`, `tasks.md`, `overview.md`; opcionalmente `suggestions.md`.
+
+Exemplo: "Em cada pasta `<código-jira>/` existem `requisitos.md`, `plan.md`, `tasks.md`, `overview.md` e, opcionalmente, `suggestions.md`."
 
 ---
 
-## Templates (pt-PT)
+## Templates
 
-### Estrutura mínima para `requisitos.md`
+- [assets/requisitos.template.md](assets/requisitos.template.md)
+- [assets/plan.template.md](assets/plan.template.md)
+- [assets/tasks.template.md](assets/tasks.template.md)
+- [assets/overview.template.md](assets/overview.template.md)
+- [assets/suggestions.template.md](assets/suggestions.template.md) (opcional)
 
-```markdown
-# [Código Jira] — Descrição breve
-
-## Descrição do requisito
-
-[Texto do requisito em português de Portugal.]
-
-## Critérios de aceitação / notas
-
-- (opcional)
-```
-
-### Estrutura mínima para `implementacao.md` (início vazio ou com cabeçalho)
-
-```markdown
-# Implementação — [Código Jira]
-
-## Resumo
-
-[Preencher ao concluir.]
-
-## Alterações realizadas
-
-[Preencher durante e ao concluir.]
-
-## Notas
-
-[Opcional.]
-```
-
-Durante o trabalho, o conteúdo pode ser mais extenso; na conclusão, condensar num resumo organizado e conciso.
+Referência adicional em [reference.md](reference.md).
 
 ---
 
 ## Regras rápidas
 
-- **Idioma**: `requisitos.md` e `implementacao.md` sempre em **português de Portugal**.
-- **Localização**: ambos no directório da feature, e.g. `GIN-AZ-42/requisitos.md` e `GIN-AZ-42/implementacao.md`.
+- **Idioma**: todos os ficheiros sempre em **português de Portugal**.
+- **Localização**: todos em `/<código-jira>/`, ex.: `GIN-AZ-42/requisitos.md`, `GIN-AZ-42/plan.md`, etc.
 - **Branch**: nome igual ao código Jira (ex.: `GIN-AZ-42`).
+- **tasks.md**: `[ ]` por fazer, `[x]` concluída; linha em branco entre tarefas; descrição curta opcional abaixo.
 - **Commits**: granulares e descritivos na branch da feature.
-- **README**: ao criar ou concluir uma feature, atualizar o README; usar a skill **github-readme** para mantê-lo simples e organizado; incluir secção que ligue ou refira `requisitos.md` e `implementacao.md` de cada feature.
+- **README**: actualizar na fase início e ao concluir; incluir secção que ligue aos ficheiros da feature.

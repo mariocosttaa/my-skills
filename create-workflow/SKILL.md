@@ -22,7 +22,7 @@ Guia para criar skills de workflow no Cursor — fluxos de trabalho por requisit
 
 1. **Tipo** — Workflow genérico (qualquer repo) ou específico deste repositório?
 2. **Âmbito** — Onde instalar: global (`~/.cursor/skills/`) ou no projeto (`.cursor/skills/` ou `.agents/skills/`)?
-3. **Integração** — Há sistema externo? (ex.: Jira, Linear, Trello) e qual o formato de identificação (ex.: GIN-AZ-42, PROJ-123)?
+3. **Integração** — Há sistema externo? (ex.: Jira, Linear, Trello) e qual o formato de identificação (ex.: GINAZ-42, PROJ-123)?
 4. **Estrutura de ficheiros** — Que ficheiros e pastas define o workflow? (ex.: `/<código>/requisitos.md`, `/<código>/implementacao.md`, branch = código)
 5. **Idioma** — Português (pt-PT), inglês, outro?
 6. **Nome** — Nome da skill (lowercase, hífens; ex.: `gin-workflow`, `my-team-workflow`).
@@ -43,10 +43,10 @@ Só avançar após confirmação.
 
 ## Tipos de workflow
 
-| Tipo | Onde instalar | Rule |
-|------|---------------|------|
-| **Genérico** | `~/.cursor/skills/<workflow-name>/` | Não cria rule — o agente carrega a skill quando relevante |
-| **Repo-specific** (global) | `~/.cursor/skills/<workflow-name>/` | Não cria rule — o utilizador activa manualmente ou por contexto |
+| Tipo                           | Onde instalar                                                          | Rule                                                                             |
+| ------------------------------ | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Genérico**                   | `~/.cursor/skills/<workflow-name>/`                                    | Não cria rule — o agente carrega a skill quando relevante                        |
+| **Repo-specific** (global)     | `~/.cursor/skills/<workflow-name>/`                                    | Não cria rule — o utilizador activa manualmente ou por contexto                  |
 | **Repo-specific** (no projeto) | `.cursor/skills/<workflow-name>/` ou `.agents/skills/<workflow-name>/` | **Criar rule** em `.cursor/rules/` que obriga a ler e seguir a skill de workflow |
 
 ---
@@ -97,11 +97,11 @@ Ver [gin-workflow](https://github.com/mariocosttaa/my-skills/tree/gin-workflow) 
 
 ## Resumo: o que criar
 
-| Componente | Genérico (global) | Repo-specific (global) | Repo-specific (projeto) |
-|------------|-------------------|------------------------|-------------------------|
-| Pasta da skill | `~/.cursor/skills/<name>/` | `~/.cursor/skills/<name>/` | `.cursor/skills/<name>/` ou `.agents/skills/<name>/` |
-| SKILL.md | ✅ | ✅ | ✅ |
-| reference.md | opcional | opcional | opcional |
-| Rule `.cursor/rules/` | ❌ | ❌ | ✅ obrigatório |
+| Componente            | Genérico (global)          | Repo-specific (global)     | Repo-specific (projeto)                              |
+| --------------------- | -------------------------- | -------------------------- | ---------------------------------------------------- |
+| Pasta da skill        | `~/.cursor/skills/<name>/` | `~/.cursor/skills/<name>/` | `.cursor/skills/<name>/` ou `.agents/skills/<name>/` |
+| SKILL.md              | ✅                         | ✅                         | ✅                                                   |
+| reference.md          | opcional                   | opcional                   | opcional                                             |
+| Rule `.cursor/rules/` | ❌                         | ❌                         | ✅ obrigatório                                       |
 
 A rule garante que, quando o agente trabalha no repo, **lê e aplica** a skill de workflow automaticamente.
