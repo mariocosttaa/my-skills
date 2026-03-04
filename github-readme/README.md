@@ -1,21 +1,28 @@
 # Skill: github-readme
 
-Skill para o Cursor criar e melhorar READMEs de repositórios GitHub.
+Cursor skill to create and improve GitHub repository READMEs.
 
-## O que faz
+## What it does
 
-- Estrutura README com: badges (shields.io), nome do projeto, descrição, Mermaid (se necessário), preview (imagem/GIF), objetivo, quick start, exemplos.
-- **Modo build:** o agente pergunta primeiro (nome, stack, objetivo, quick start, Mermaid, preview, etc.) e só depois gera o README.
-- Lembra sempre que o utilizador pode alterar o conteúdo.
+- Structures READMEs with: badges (shields.io), project name, description, Mermaid (if needed), preview (image/GIF), objective, quick start, examples.
+- **Build mode:** the agent asks first (name, stack, objective, quick start, Mermaid, preview, etc.) and only then generates the README.
+- Always reminds the user they can change the content.
 
-## Quando usar
+## When to use
 
-- "Cria um README para este repo"
-- "Melhora o README do GitHub"
-- "Adiciona badges ao README"
-- "Documenta o projeto no README"
+- "Create a README for this repo"
+- "Improve the GitHub README"
+- "Add badges to the README"
+- "Document the project in the README"
 
-## Ficheiros
+## Files
 
-- **SKILL.md** — instruções principais para o agente.
-- **reference.md** — estrutura detalhada, exemplos de badges e secções.
+| File | Use |
+|------|-----|
+| `SKILL.md` | Main instructions for the agent. |
+| `reference.md` | Detailed structure, badge and section examples. |
+| `README.md` | This file — documentation for humans. |
+
+## Source
+
+From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills): `git clone -b github-readme https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/github-readme ~/.cursor/skills/`

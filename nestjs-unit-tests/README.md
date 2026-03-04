@@ -1,28 +1,32 @@
 # NestJS Unit Tests skill
 
-Skill para o Cursor que guia a escrita de **testes unitários** em NestJS com Jest.
+Cursor skill that guides writing **unit tests** in NestJS with Jest.
 
-## O que cobre
+## What it covers
 
-- **Posição do ficheiro:** junto ao código testado (co-location).
-- **Nome do ficheiro:** `*.spec.ts` (ex.: `users.service.spec.ts`).
-- **Sintaxe:** `Test.createTestingModule()`, mocks com `useValue` e `jest.fn()`, `afterEach(() => jest.resetAllMocks())`.
-- **Comentários:** sempre em **inglês**, uma ou duas linhas, objetivos; presentes nos pontos que facilitam a leitura (describe, beforeEach, it, passos não óbvios).
-- **O que testar:** Services, Controllers (com service mockado), Guards, Pipes, Interceptors. Não testar Modules nem métodos privados diretamente.
+- **File placement:** Next to the code under test (co-location).
+- **File naming:** `*.spec.ts` (e.g. `users.service.spec.ts`).
+- **Syntax:** `Test.createTestingModule()`, mocks with `useValue` and `jest.fn()`, `afterEach(() => jest.resetAllMocks())`.
+- **Comments:** Always in **English**, one or two lines, objective; present where they help reading (describe, beforeEach, it, non-obvious steps).
+- **What to test:** Services, Controllers (with service mocked), Guards, Pipes, Interceptors. Do not test Modules or private methods directly.
 
-## O que não cobre
+## What it does not cover
 
-- Testes de **integração** (API + DB real, Supertest) — ver skill dedicada.
-- Testes **E2E** (browser, Playwright/Cypress) — ver skill dedicada.
+- **Integration** tests (API + real DB, Supertest) — see dedicated skill.
+- **E2E** tests (browser, Playwright/Cypress) — see dedicated skill.
 
-## Ficheiros
+## Files
 
-| Ficheiro       | Uso |
-|----------------|-----|
-| `SKILL.md`     | Instruções principais para o agente. |
-| `reference.md` | Exemplos completos (service, controller, guard) com comentários. |
-| `README.md`    | Este ficheiro — documentação para humanos. |
+| File | Use |
+|------|-----|
+| `SKILL.md` | Main instructions for the agent. |
+| `reference.md` | Full examples (service, controller, guard) with comments. |
+| `README.md` | This file — documentation for humans. |
 
-## Ativação
+## Activation
 
-A skill é aplicada quando o utilizador cria ou edita testes unitários em projetos NestJS (ficheiros `*.spec.ts`, menção a unit tests, Jest, etc.).
+The skill applies when the user creates or edits unit tests in NestJS projects (files `*.spec.ts`, mentions of unit tests, Jest, etc.).
+
+## Source
+
+From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills): `git clone -b nestjs-unit-tests https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/nestjs-unit-tests ~/.cursor/skills/`

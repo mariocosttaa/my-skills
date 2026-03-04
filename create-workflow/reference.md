@@ -1,11 +1,11 @@
-# Referência: Create Workflow
+# Reference: Create Workflow
 
-## Quando usar Rule vs só Skill
+## When to use Rule vs Skill only
 
-- **Rule obrigatória** quando a skill de workflow está no projeto (`.cursor/skills/` ou `.agents/skills/`): garante que o agente lê a skill em cada prompt.
-- **Sem rule** quando a skill está global (`~/.cursor/skills/`): o agente carrega conforme relevância do prompt.
+- **Rule required** when the workflow skill is in the project (`.cursor/skills/` or `.agents/skills/`): ensures the agent reads the skill on every prompt.
+- **No rule** when the skill is global (`~/.cursor/skills/`): the agent loads it based on prompt relevance.
 
-## Exemplo de Rule para repo-specific
+## Example Rule for repo-specific workflow
 
 ```yaml
 ---
@@ -16,6 +16,10 @@ alwaysApply: true
 ---
 ```
 
-## Diferença para gin-workflow
+## Difference from gin-workflow
 
-O **gin-workflow** é uma skill de workflow *já pronta* para o projeto GIN. A **create-workflow** ajuda a *criar* novas skills de workflow para outros projetos ou equipas, seguindo o mesmo padrão.
+**gin-workflow** is a *ready-made* workflow skill for the GIN project. **create-workflow** helps *create* new workflow skills for other projects or teams, following the same pattern.
+
+## Source
+
+From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills) — gin-workflow: [tree/gin-workflow](https://github.com/mariocosttaa/my-agent-skills/tree/gin-workflow).

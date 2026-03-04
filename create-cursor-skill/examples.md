@@ -1,8 +1,8 @@
-# Exemplos de Skills bem estruturadas
+# Examples of well-structured Skills
 
-## Exemplo 1 — Skill mínima
+## Example 1 — Minimal skill
 
-Pasta: `~/.cursor/skills/commit-helper/`
+Folder: `~/.cursor/skills/commit-helper/`
 
 **SKILL.md:**
 
@@ -19,7 +19,7 @@ description: Generates conventional commit messages by analyzing git diffs. Use 
 3. Output in format: `type(scope): description` with optional body.
 ```
 
-Estrutura de ficheiros:
+File structure:
 
 ```
 commit-helper/
@@ -28,9 +28,9 @@ commit-helper/
 
 ---
 
-## Exemplo 2 — Skill com referência e README
+## Example 2 — Skill with reference and README
 
-Pasta: `.cursor/skills/code-review/`
+Folder: `.cursor/skills/code-review/`
 
 **SKILL.md:**
 
@@ -58,11 +58,11 @@ description: Reviews code for quality, security, and maintainability. Use when r
 For detailed standards, see [STANDARDS.md](references/STANDARDS.md).
 ```
 
-**references/STANDARDS.md** (conteúdo resumido): checklist de segurança, convenções de estilo, etc.
+**references/STANDARDS.md** (summary content): security checklist, style conventions, etc.
 
-**README.md:** descrição da skill, quando usar, estrutura da pasta (para humanos).
+**README.md:** skill description, when to use, folder structure (for humans).
 
-Estrutura:
+Structure:
 
 ```
 code-review/
@@ -74,9 +74,9 @@ code-review/
 
 ---
 
-## Exemplo 3 — Skill com scripts
+## Example 3 — Skill with scripts
 
-Pasta: `.cursor/skills/deploy-app/`
+Folder: `.cursor/skills/deploy-app/`
 
 **SKILL.md:**
 
@@ -94,7 +94,7 @@ description: Deploys the application to staging or production. Use when the user
 2. Deploy: `./scripts/deploy.sh <environment>` (staging | production)
 ```
 
-Estrutura:
+Structure:
 
 ```
 deploy-app/
@@ -107,9 +107,9 @@ deploy-app/
 
 ---
 
-## Exemplo 4 — Regra .mdc (Rule, não Skill)
+## Example 4 — .mdc Rule (Rule, not Skill)
 
-Ficheiro: `.cursor/rules/typescript-standards.mdc`
+File: `.cursor/rules/typescript-standards.mdc`
 
 ```markdown
 ---
@@ -125,15 +125,15 @@ alwaysApply: false
 - Export types from a dedicated types file per feature.
 ```
 
-Isto é uma **Rule**, não uma Skill: vive em `.cursor/rules/`, usa `globs` e `alwaysApply`, e não tem pasta com SKILL.md.
+This is a **Rule**, not a Skill: lives in `.cursor/rules/`, uses `globs` and `alwaysApply`, and has no folder with SKILL.md.
 
 ---
 
-## Resumo
+## Summary
 
-| Exemplo | Conteúdo | Quando usar como modelo |
-|---------|----------|-------------------------|
-| 1 | Só SKILL.md | Skill muito simples, sem extras |
-| 2 | SKILL + references + README | Skill com documentação detalhada |
-| 3 | SKILL + scripts + README | Skill que executa scripts |
-| 4 | .mdc em .cursor/rules/ | Regras de projeto (não skill) |
+| Example | Content | When to use as template |
+|---------|---------|-------------------------|
+| 1 | SKILL.md only | Very simple skill, no extras |
+| 2 | SKILL + references + README | Skill with detailed documentation |
+| 3 | SKILL + scripts + README | Skill that runs scripts |
+| 4 | .mdc in .cursor/rules/ | Project rules (not a skill) |

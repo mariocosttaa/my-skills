@@ -4,125 +4,125 @@ description: >
   Guides users through creating Cursor Agent Skills from scratch. Use when the user wants to create
   a new skill, asks "how do I create a skill", "skill structure", "SKILL.md format", "where to put
   skills", or needs the full file structure, directory layout, frontmatter rules, optional .mdc rules
-  context, README for skills, and best practices. Requires using Plan mode (Build) first to gather
-  requirements via questions and overview before implementing. Covers .agents/skills, .cursor/skills, SKILL.md frontmatter,
+  context, README for skills, and best practices. Requires gathering requirements via questions and
+  overview before implementing. Covers .agents/skills, .cursor/skills, SKILL.md frontmatter,
   references/, scripts/, assets/, and when to use skills vs .cursor/rules (.mdc).
 ---
 
 # Create Cursor Skill
 
-Guia para criar Agent Skills no Cursor seguindo o padrão oficial (agentskills.io) e as boas práticas.
+Guide to create Agent Skills in Cursor following the official pattern (agentskills.io) and best practices.
 
 ---
 
-## Obrigatório: perguntas antes de começar
+## Required: questions before starting
 
-**Não criar nenhum ficheiro** até responder a estas perguntas e apresentar um overview ao utilizador. Perguntar em linguagem natural (não em lista seca); se faltar contexto, pedir esclarecimento antes de avançar.
+**Do not create any file** until you answer these questions and present an overview to the user. Ask in natural language (not a dry list); if context is missing, ask for clarification before proceeding.
 
-### Perguntas a fazer
+### Questions to ask
 
-1. **Propósito** — Que tarefa ou workflow específico vai cobrir esta skill? O que o utilizador espera que o agente saiba fazer?
-2. **Âmbito** — Onde será usada: só neste projeto (`.cursor/skills/` ou `.agents/skills/`) ou globalmente (`~/.cursor/skills/`)?
-3. **Ativação** — Em que situações o agente deve carregar esta skill? (ex.: "quando o utilizador mencionar Excel, PDF, deploy, etc.")
-4. **Conhecimento** — Que informação o agente não sabe à partida e precisa de ter na skill?
-5. **Formato** — Há templates, convenções ou exemplos existentes a seguir?
-6. **Nome** — Nome sugerido para a skill (lowercase, hífens; ex.: `excel-reports`, `docker-deploy`).
+1. **Purpose** — What specific task or workflow will this skill cover? What does the user expect the agent to know how to do?
+2. **Scope** — Where will it be used: this project only (`.cursor/skills/` or `.agents/skills/`) or globally (`~/.cursor/skills/`)?
+3. **Activation** — In which situations should the agent load this skill? (e.g. "when the user mentions Excel, PDF, deploy, etc.")
+4. **Knowledge** — What information does the agent not know by default and needs in the skill?
+5. **Format** — Are there templates, conventions or existing examples to follow?
+6. **Name** — Suggested name for the skill (lowercase, hyphens; e.g. `excel-reports`, `docker-deploy`).
 
-### Overview antes de implementar
+### Overview before implementing
 
-Depois de recolher as respostas, **mostrar ao utilizador** um resumo do que será criado, por exemplo:
+After gathering answers, **show the user** a summary of what will be created, e.g.:
 
-- **Nome da skill:** `exemplo-skill`
-- **Localização:** `~/.cursor/skills/exemplo-skill/` (ou path do projeto)
-- **Ficheiros a criar:** SKILL.md, reference.md (opcional), README.md (opcional)
-- **Conteúdo principal:** breve descrição do que as instruções vão cobrir
-- **Termos de ativação:** ex.: "Use when the user mentions X, Y, Z"
+- **Skill name:** `example-skill`
+- **Location:** `~/.cursor/skills/example-skill/` (or project path)
+- **Files to create:** SKILL.md, reference.md (optional), README.md (optional)
+- **Main content:** brief description of what the instructions will cover
+- **Activation terms:** e.g. "Use when the user mentions X, Y, Z"
 
-Só avançar para criar ficheiros **após confirmação** do utilizador (explícita ou implícita, ex.: "sim, avança").
-
----
-
-## Decisão rápida: Skill vs Rule (.mdc)
-
-| Objetivo | Usar | Localização |
-|----------|------|-------------|
-| Capacidade reutilizável, carregada sob demanda | **Skill** | `.agents/skills/` ou `.cursor/skills/` ou `~/.cursor/skills/` |
-| Instruções por projeto, globs, always apply | **Rule** | `.cursor/rules/*.mdc` ou `.cursor/rules/*.md` |
-
-Skills são pacotes com `SKILL.md`; Rules são ficheiros `.mdc`/`.md` em `.cursor/rules/` com `description`, `globs`, `alwaysApply`. Ver [reference.md](reference.md) para detalhes de ambos.
+Only proceed to create files **after confirmation** from the user (explicit or implicit, e.g. "yes, go ahead").
 
 ---
 
-## Estrutura obrigatória de uma Skill
+## Quick decision: Skill vs Rule (.mdc)
 
-Cada skill é uma **pasta** com um ficheiro **SKILL.md**:
+| Goal | Use | Location |
+|----------|------|----------|
+| Reusable capability, loaded on demand | **Skill** | `.agents/skills/` or `.cursor/skills/` or `~/.cursor/skills/` |
+| Per-project instructions, globs, always apply | **Rule** | `.cursor/rules/*.mdc` or `.cursor/rules/*.md` |
+
+Skills are packages with `SKILL.md`; Rules are `.mdc`/`.md` files in `.cursor/rules/` with `description`, `globs`, `alwaysApply`. See [reference.md](reference.md) for details on both.
+
+---
+
+## Required skill structure
+
+Each skill is a **folder** with a **SKILL.md** file:
 
 ```
 skill-name/
-├── SKILL.md              # Obrigatório — frontmatter YAML + instruções
-├── reference.md          # Opcional — documentação detalhada
-├── examples.md           # Opcional — exemplos de uso
-├── README.md             # Opcional — para humanos (não injetado no agente)
-├── scripts/              # Opcional — scripts executáveis
-├── references/           # Opcional — ficheiros de referência (progressive disclosure)
-└── assets/               # Opcional — templates, configs, imagens
+├── SKILL.md              # Required — frontmatter YAML + instructions
+├── reference.md          # Optional — detailed documentation
+├── examples.md           # Optional — usage examples
+├── README.md             # Optional — for humans (not injected into the agent)
+├── scripts/              # Optional — executable scripts
+├── references/           # Optional — reference files (progressive disclosure)
+└── assets/               # Optional — templates, configs, images
 ```
 
-**Regra:** O nome da pasta deve coincidir com o campo `name` do frontmatter (lowercase, hífens, máx. 64 caracteres).
+**Rule:** The folder name must match the `name` field in the frontmatter (lowercase, hyphens, max 64 characters).
 
 ---
 
-## Onde guardar a skill
+## Where to store the skill
 
-| Âmbito | Caminho |
-|--------|---------|
-| Projeto (repositório) | `.agents/skills/skill-name/` ou `.cursor/skills/skill-name/` |
-| Utilizador (global) | `~/.cursor/skills/skill-name/` |
+| Scope | Path |
+|--------|------|
+| Project (repository) | `.agents/skills/skill-name/` or `.cursor/skills/skill-name/` |
+| User (global) | `~/.cursor/skills/skill-name/` |
 
-**Nunca** criar skills em `~/.cursor/skills-cursor/` — é reservado para skills internas do Cursor.
+**Never** create skills in `~/.cursor/skills-cursor/` — reserved for Cursor internal skills.
 
 ---
 
-## SKILL.md — formato mínimo
+## SKILL.md — minimum format
 
 ```markdown
 ---
 name: my-skill-name
-description: Descrição curta do que a skill faz e quando o agente deve usá-la (máx. 1024 caracteres).
+description: Short description of what the skill does and when the agent should use it (max 1024 chars).
 ---
 
-# Nome da Skill
+# Skill Name
 
-## Instruções
-Passo a passo para o agente.
+## Instructions
+Step-by-step for the agent.
 ```
 
-### Frontmatter obrigatório
+### Required frontmatter
 
-| Campo | Regras |
-|-------|--------|
-| `name` | Obrigatório. Lowercase, letras/números/hífens, máx. 64 caracteres. Deve coincidir com o nome da pasta. |
-| `description` | Obrigatório. O que faz + quando ativar. Máx. 1024 caracteres. Em terceira pessoa (ex.: "Processes Excel files..." não "I process..."). |
+| Field | Rules |
+|-------|-------|
+| `name` | Required. Lowercase, letters/numbers/hyphens, max 64 characters. Must match folder name. |
+| `description` | Required. What it does + when to activate. Max 1024 characters. Third person (e.g. "Processes Excel files..." not "I process..."). |
 
-### Frontmatter opcional
+### Optional frontmatter
 
-| Campo | Uso |
+| Field | Use |
 |-------|-----|
-| `license` | SPDX ou referência a ficheiro de licença |
-| `compatibility` | Agentes/ambiente compatíveis |
+| `license` | SPDX or reference to license file |
+| `compatibility` | Compatible agents/environment |
 | `metadata` | author, version, tags |
-| `disable-model-invocation` | Se `true`, a skill só é aplicada quando invocada explicitamente com `/skill-name` |
+| `disable-model-invocation` | If `true`, the skill is only applied when explicitly invoked with `/skill-name` |
 
 ---
 
-## Descrição eficaz
+## Effective description
 
-A descrição determina quando o agente aplica a skill. Incluir:
+The description determines when the agent applies the skill. Include:
 
-1. **O quê** — capacidades concretas.
-2. **Quando** — termos de ativação (ex.: "Use when the user mentions PDF, Excel, deploy...").
+1. **What** — concrete capabilities.
+2. **When** — activation terms (e.g. "Use when the user mentions PDF, Excel, deploy...").
 
-Exemplo:
+Example:
 
 ```yaml
 description: >
@@ -132,23 +132,24 @@ description: >
 
 ---
 
-## Princípios ao escrever a skill
+## Principles for writing the skill
 
-1. **Concisão** — só incluir o que o agente não sabe. Manter SKILL.md sob ~500 linhas.
-2. **Progressive disclosure** — o essencial em SKILL.md; detalhes em `reference.md` ou `references/` e referenciar com links.
-3. **Referências a um nível** — ligar de SKILL.md diretamente a ficheiros (ex.: `[reference.md](reference.md)`). Evitar árvores profundas.
-4. **Sem paths Windows** — usar `scripts/helper.py`, nunca `scripts\helper.py`.
+1. **Agent instructions in English** — Keep all instructions, comments and documentation in the skill in English. Outputs or generated content (e.g. requisitos.md, user-facing text) may be in another language if the skill explicitly states it (e.g. "output in pt-PT").
+2. **Be concise** — only include what the agent does not know. Keep SKILL.md under ~500 lines.
+3. **Progressive disclosure** — essentials in SKILL.md; details in `reference.md` or `references/` and link to them.
+4. **Single-level references** — link from SKILL.md directly to files (e.g. `[reference.md](reference.md)`). Avoid deep trees.
+5. **No Windows paths** — use `scripts/helper.py`, never `scripts\helper.py`.
 
 ---
 
-## Checklist antes de publicar
+## Pre-publish checklist
 
-- [ ] Perguntas obrigatórias feitas; overview apresentado ao utilizador; confirmação antes de implementar
-- [ ] `name` em lowercase com hífens, pasta com o mesmo nome
-- [ ] `description` em terceira pessoa, com termos de ativação
-- [ ] SKILL.md com instruções claras e passos concretos
-- [ ] Documentação extra em reference(s) se necessário
-- [ ] README.md opcional para quem navega a pasta
-- [ ] Sem referências a `~/.cursor/skills-cursor/`
+- [ ] Required questions asked; overview shown to the user; confirmation before implementing
+- [ ] `name` in lowercase with hyphens, folder with the same name
+- [ ] `description` in third person, with activation terms
+- [ ] SKILL.md with clear instructions and concrete steps
+- [ ] Extra documentation in reference(s) if needed
+- [ ] README.md optional for humans browsing the folder
+- [ ] No references to `~/.cursor/skills-cursor/`
 
-Para estrutura completa, .mdc vs skills, e exemplos, ver [reference.md](reference.md) e [examples.md](examples.md).
+For full structure, .mdc vs skills, and examples, see [reference.md](reference.md) and [examples.md](examples.md).

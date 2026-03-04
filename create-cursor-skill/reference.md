@@ -1,157 +1,157 @@
-# Referência: Skills vs Rules, Estrutura e Formatos
+# Reference: Skills vs Rules, Structure and Formats
 
-## 1. Workflow ao criar uma skill — Plan mode (Build) primeiro
+## 1. Workflow when creating a skill — Plan mode (Build) first
 
-Antes de implementar qualquer ficheiro da skill, usar **Plan mode** no Cursor (ou equivalente "Build") para recolher tudo o que é necessário:
+Before implementing any skill file, use **Plan mode** in Cursor (or equivalent "Build") to gather everything needed:
 
-- **Como ativar:** `Cmd+.` / `Ctrl+.` → escolher Plan; ou `Shift+Tab` para alternar modos.
-- **Objetivo:** pesquisa no codebase, perguntas de clarificação ao utilizador e definição de um plano revisto antes de escrever código.
-- **O que recolher:** propósito, âmbito, localização (projeto vs utilizador), triggers, conhecimento de domínio, formato de saída, exemplos existentes.
-- **Regra:** não criar SKILL.md nem outros ficheiros até que a fase de descoberta esteja concluída. Só depois passar a Agent mode para implementar.
+- **How to activate:** `Cmd+.` / `Ctrl+.` → choose Plan; or `Shift+Tab` to switch modes.
+- **Goal:** search the codebase, clarification questions to the user, and definition of a reviewed plan before writing code.
+- **What to gather:** purpose, scope, location (project vs user), triggers, domain knowledge, output format, existing examples.
+- **Rule:** do not create SKILL.md or other files until the discovery phase is complete. Only then switch to Agent mode to implement.
 
 ---
 
-## 2. Onde vivem Skills e Rules
+## 2. Where Skills and Rules live
 
 ### Skills (SKILL.md)
 
-| Âmbito | Caminho |
-|--------|---------|
-| Projeto | `.agents/skills/<skill-name>/` |
-| Projeto | `.cursor/skills/<skill-name>/` |
-| Utilizador (global) | `~/.cursor/skills/<skill-name>/` |
+| Scope | Path |
+|--------|------|
+| Project | `.agents/skills/<skill-name>/` |
+| Project | `.cursor/skills/<skill-name>/` |
+| User (global) | `~/.cursor/skills/<skill-name>/` |
 
-Compatibilidade: Cursor também carrega de `.claude/skills/` e `.codex/skills/` (e equivalentes em `~`).
+Compatibility: Cursor also loads from `.claude/skills/` and `.codex/skills/` (and equivalents in `~`).
 
-Cada skill é uma **pasta** com ficheiro **SKILL.md** obrigatório.
+Each skill is a **folder** with a required **SKILL.md** file.
 
-### Rules (regras de projeto)
+### Rules (project rules)
 
-| Tipo | Localização |
-|------|-------------|
+| Type | Location |
+|------|----------|
 | Project Rules | `.cursor/rules/` |
 
-Ficheiros: **.mdc** (com frontmatter) ou **.md**. Podem estar em subpastas (ex.: `.cursor/rules/frontend/components.mdc`).
+Files: **.mdc** (with frontmatter) or **.md**. Can be in subfolders (e.g. `.cursor/rules/frontend/components.mdc`).
 
 ---
 
-## 3. Estrutura completa de uma Skill
+## 3. Full Skill structure
 
 ```
 skill-name/
-├── SKILL.md                 # Obrigatório
-├── reference.md             # Opcional — referência detalhada
-├── examples.md              # Opcional — exemplos
-├── README.md                # Opcional — documentação para humanos
-├── scripts/                 # Opcional — scripts executáveis
+├── SKILL.md                 # Required
+├── reference.md             # Optional — detailed reference
+├── examples.md              # Optional — examples
+├── README.md                # Optional — documentation for humans
+├── scripts/                 # Optional — executable scripts
 │   ├── deploy.sh
 │   └── validate.py
-├── references/              # Opcional — vários .md (progressive disclosure)
+├── references/              # Optional — multiple .md (progressive disclosure)
 │   └── REFERENCE.md
-└── assets/                 # Opcional — templates, configs, imagens
+└── assets/                  # Optional — templates, configs, images
     └── config-template.json
 ```
 
-- **SKILL.md**: instruções principais; manter focado e < ~500 linhas.
-- **reference(s)** e **examples**: carregados sob demanda quando o agente segue links.
-- **scripts/**: referenciar no SKILL.md com caminhos relativos (ex.: `scripts/deploy.sh`).
-- **README.md**: não é injetado no agente; serve quem navega a pasta.
+- **SKILL.md**: main instructions; keep focused and < ~500 lines.
+- **reference(s)** and **examples**: loaded on demand when the agent follows links.
+- **scripts/**: reference in SKILL.md with relative paths (e.g. `scripts/deploy.sh`).
+- **README.md**: not injected into the agent; serves humans browsing the folder.
 
 ---
 
-## 4. Formato SKILL.md — frontmatter
+## 4. SKILL.md format — frontmatter
 
-### Campos obrigatórios
+### Required fields
 
 ```yaml
 ---
 name: my-skill-name
-description: O que a skill faz e quando o agente deve usá-la (máx. 1024 caracteres).
+description: What the skill does and when the agent should use it (max 1024 chars).
 ---
 ```
 
-- **name**: identificador único; só letras minúsculas, números e hífens; máx. 64 caracteres; deve coincidir com o nome da pasta.
-- **description**: em terceira pessoa; incluir termos de ativação (ex.: "Use when the user mentions X, Y, Z").
+- **name**: unique identifier; lowercase letters, numbers, hyphens only; max 64 characters; must match folder name.
+- **description**: third person; include activation terms (e.g. "Use when the user mentions X, Y, Z").
 
-### Campos opcionais
+### Optional fields
 
-| Campo | Descrição |
-|-------|-----------|
-| `license` | Licença (SPDX ou referência a ficheiro) |
-| `compatibility` | Requisitos de ambiente / agentes compatíveis |
+| Field | Description |
+|-------|-------------|
+| `license` | License (SPDX or file reference) |
+| `compatibility` | Environment / compatible agents |
 | `metadata` | author, version, tags, etc. |
-| `disable-model-invocation` | Se `true`, a skill só é aplicada quando invocada com `/skill-name` |
+| `disable-model-invocation` | If `true`, the skill is only applied when invoked with `/skill-name` |
 
 ---
 
-## 5. Formato .mdc (Rules)
+## 5. .mdc format (Rules)
 
-Rules vivem em `.cursor/rules/` e controlam quando são aplicadas via frontmatter.
+Rules live in `.cursor/rules/` and control when they are applied via frontmatter.
 
-### Estrutura de um .mdc
+### .mdc structure
 
 ```markdown
 ---
-description: Descrição para o agente decidir quando aplicar (Apply Intelligently).
-globs: "*.ts"              # Opcional — aplicar quando ficheiro corresponder
-alwaysApply: false         # true = aplicar em toda a sessão
+description: Description for the agent to decide when to apply (Apply Intelligently).
+globs: "*.ts"              # Optional — apply when file matches
+alwaysApply: false         # true = apply for the whole session
 ---
 
-# Conteúdo da regra em Markdown
-- Instrução 1
-- Instrução 2
+# Rule content in Markdown
+- Instruction 1
+- Instruction 2
 ```
 
-### Tipos de ativação (via UI / propriedades)
+### Activation types (via UI / properties)
 
-| Tipo | Comportamento |
-|------|----------------|
-| Always Apply | `alwaysApply: true` — em toda a sessão |
-| Apply Intelligently | Descrição boa; agente decide pela relevância |
-| Apply to Specific Files | `globs` definido (ex.: `*.ts`, `src/**/*.tsx`) |
-| Apply Manually | Aplicada quando @-mencionada no chat (ex.: `@my-rule`) |
+| Type | Behaviour |
+|------|-----------|
+| Always Apply | `alwaysApply: true` — for the whole session |
+| Apply Intelligently | Good description; agent decides by relevance |
+| Apply to Specific Files | `globs` set (e.g. `*.ts`, `src/**/*.tsx`) |
+| Apply Manually | Applied when @-mentioned in chat (e.g. `@my-rule`) |
 
-### Boas práticas para .mdc
+### .mdc best practices
 
-- Nomes em kebab-case (ex.: `typescript-standards.mdc`).
-- Sempre extensão `.mdc` para regras com frontmatter.
-- Regras focadas e acionáveis; evitar duplicar o que já está no código.
-- Manter sob ~500 linhas; referenciar ficheiros com `@ficheiro` em vez de colar conteúdo.
+- Names in kebab-case (e.g. `typescript-standards.mdc`).
+- Always use `.mdc` extension for rules with frontmatter.
+- Focused, actionable rules; avoid duplicating what is already in the code.
+- Keep under ~500 lines; reference files with `@file` instead of pasting content.
 
 ---
 
-## 6. Diferença prática: Skill vs Rule
+## 6. Practical difference: Skill vs Rule
 
-| Aspeto | Skill | Rule (.mdc) |
-|--------|--------|-------------|
-| Ficheiro principal | SKILL.md dentro de pasta | .mdc ou .md em .cursor/rules/ |
-| Estrutura | Pasta com SKILL.md + opcional scripts/references/assets | Ficheiro único (ou pasta com vários .mdc) |
-| Descoberta | Por nome/descrição; ou `/skill-name` | Por description/globs/alwaysApply ou @rule |
-| Uso típico | Workflows, domínios, scripts reutilizáveis | Padrões de código, convenções por projeto |
-| Âmbito | Projeto ou utilizador (conforme pasta) | Projeto (`.cursor/rules/`) |
+| Aspect | Skill | Rule (.mdc) |
+|--------|-------|-------------|
+| Main file | SKILL.md inside folder | .mdc or .md in .cursor/rules/ |
+| Structure | Folder with SKILL.md + optional scripts/references/assets | Single file (or folder with several .mdc) |
+| Discovery | By name/description; or `/skill-name` | By description/globs/alwaysApply or @rule |
+| Typical use | Workflows, domains, reusable scripts | Code patterns, per-project conventions |
+| Scope | Project or user (per folder) | Project (`.cursor/rules/`) |
 
 ---
 
 ## 7. Progressive disclosure
 
-- **Descoberta**: agente vê só `name` e `description` (~100 tokens).
-- **Ativação**: quando relevante, carrega SKILL.md completo.
-- **Execução**: segue instruções e abre ficheiros referenciados (reference.md, examples, scripts) só quando necessário.
+- **Discovery**: agent sees only `name` and `description` (~100 tokens).
+- **Activation**: when relevant, loads full SKILL.md.
+- **Execution**: follows instructions and opens referenced files (reference.md, examples, scripts) only when needed.
 
-Por isso: manter SKILL.md enxuto; detalhe em `reference.md` ou `references/*.md` e ligar com links de um nível.
-
----
-
-## 8. Scripts em skills
-
-- Colocar em `scripts/` e referenciar com caminhos relativos: `scripts/deploy.sh`, `python scripts/validate.py`.
-- Scripts devem ser autocontidos, com mensagens de erro úteis.
-- Documentar dependências (pacotes, ambiente) no SKILL.md ou em reference.
+Hence: keep SKILL.md lean; detail in `reference.md` or `references/*.md` and link with single-level links.
 
 ---
 
-## 9. README.md na pasta da skill
+## 8. Scripts in skills
 
-- **Não** é injetado no contexto do agente.
-- Serve para humanos: explicar propósito, estrutura da pasta, quando usar cada ficheiro.
-- Útil em repositórios e em `~/.cursor/skills/` para documentação local.
+- Place in `scripts/` and reference with relative paths: `scripts/deploy.sh`, `python scripts/validate.py`.
+- Scripts should be self-contained, with useful error messages.
+- Document dependencies (packages, environment) in SKILL.md or reference.
+
+---
+
+## 9. README.md in the skill folder
+
+- **Not** injected into the agent context.
+- Serves humans: explain purpose, folder structure, when to use each file.
+- Useful in repositories and in `~/.cursor/skills/` for local documentation.
