@@ -6,87 +6,87 @@ description: >
 
 # GitHub README Skill
 
-Cria e melhora READMEs de repositórios GitHub com estrutura profissional: badges, descrição, diagramas Mermaid, preview (imagem/GIF), objetivo, quick start e exemplos. **Modo build:** o agente pergunta antes de escrever e lembra que o utilizador pode alterar tudo.
+Creates and improves GitHub repository READMEs with a professional structure: badges, description, Mermaid diagrams, preview (image/GIF), objective, quick start and examples. **Build mode:** the agent asks before writing and reminds the user they can change everything.
 
 ---
 
-## Regra obrigatória: perguntar antes de escrever
+## Required rule: ask before writing
 
-**Nunca** gerar o README completo de imediato. Operar em **modo build**:
+**Never** generate the full README immediately. Operate in **build mode**:
 
-1. **Antes de escrever**, fazer perguntas para recolher:
-   - Nome do projeto/repositório
-   - Linguagens, frameworks e libs principais (para badges)
-   - Descrição curta (uma ou duas frases)
-   - Objetivo principal do projeto
-   - Passos de quick start (comandos, pré-requisitos)
-   - Se precisa de diagrama Mermaid (fluxo, arquitetura, pipeline)
-   - Se quer imagem ou GIF de preview da aplicação
-   - Seções extras (comandos, estrutura do projeto, API, testes, licença)
+1. **Before writing**, ask questions to gather:
+   - Project/repository name
+   - Main languages, frameworks and libs (for badges)
+   - Short description (one or two sentences)
+   - Main project objective
+   - Quick start steps (commands, prerequisites)
+   - Whether a Mermaid diagram is needed (flow, architecture, pipeline)
+   - Whether they want an image or GIF preview of the application
+   - Extra sections (commands, project structure, API, tests, license)
 
-2. **Resumir** as respostas e perguntar: *"Queres alterar algo antes de eu gerar o README?"*
+2. **Summarise** the answers and ask: *"Do you want to change anything before I generate the README?"*
 
-3. **Só depois** de confirmar (ou do utilizador dizer para avançar), gerar o conteúdo do README.
+3. **Only after** confirmation (or the user saying to proceed), generate the README content.
 
-4. **No final**, dizer que o README é um rascunho e que pode ser editado/alterado à vontade.
+4. **At the end**, say the README is a draft and can be edited as needed.
 
-Se o utilizador já tiver dado todas as informações numa mensagem, ainda assim listar o que se vai usar e perguntar *"Confirmas ou queres alterar algo?"* antes de gerar.
+If the user has already provided all the information in a message, still list what will be used and ask *"Do you confirm or want to change anything?"* before generating.
 
 ---
 
-## Estrutura do README
+## README structure
 
-Seguir esta ordem e incluir apenas o que fizer sentido para o projeto. Ver [reference.md](reference.md) para exemplos e detalhes.
+Follow this order and include only what makes sense for the project. See [reference.md](reference.md) for examples and details.
 
-| Secção | Conteúdo |
+| Section | Content |
 |--------|----------|
-| **Título** | Nome do projeto/repo (H1), opcionalmente com emoji (ex.: `# 🚀 Nome do Projeto`). |
-| **Versão / tagline** | Linha opcional com versão ou frase curta em **negrito**. |
-| **Badges** | Ícones de linguagens, libs e ferramentas (shields.io). Uma linha de badges, sem quebras. |
-| **Descrição** | Um ou dois parágrafos: o que é o projeto, para quem é, destaque principal. |
-| **Preview** | Se aplicável: imagem ou GIF da aplicação com legenda. |
-| **Como funciona / Objetivo** | Explicação do fluxo, pipeline ou objetivo; opcionalmente com diagrama Mermaid ou imagem exportada. |
-| **Quick start** | Pré-requisitos e passos numerados (clone, install, config, run). Com blocos de código quando fizer sentido. |
-| **Comandos / Tabela** | Tabela de comandos úteis (ex.: `npm run X`, `rails Y`) se relevante. |
-| **Estrutura do projeto** | Tabela ou árvore das pastas principais e o que fazem. |
-| **Exemplos** | Exemplo mínimo de uso (comandos ou código). |
-| **Limitações / Recomendações** | Opcional; só se fizer sentido. |
-| **Licença** | Licença (ex.: MIT) e link para ficheiro LICENSE. |
+| **Title** | Project/repo name (H1), optionally with emoji (e.g. `# 🚀 Project Name`). |
+| **Version / tagline** | Optional line with version or short phrase in **bold**. |
+| **Badges** | Icons for languages, libs and tools (shields.io). Single line of badges, no breaks. |
+| **Description** | One or two paragraphs: what the project is, who it is for, main highlight. |
+| **Preview** | If applicable: image or GIF of the application with caption. |
+| **How it works / Objective** | Flow, pipeline or objective; optionally with Mermaid diagram or exported image. |
+| **Quick start** | Prerequisites and numbered steps (clone, install, config, run). With code blocks when appropriate. |
+| **Commands / Table** | Table of useful commands (e.g. `npm run X`, `rails Y`) if relevant. |
+| **Project structure** | Table or tree of main folders and what they do. |
+| **Examples** | Minimal usage example (commands or code). |
+| **Limitations / Recommendations** | Optional; only if it makes sense. |
+| **License** | License (e.g. MIT) and link to LICENSE file. |
 
 ---
 
 ## Badges (shields.io)
 
-- Usar **uma linha** de badges, sem quebras, para linguagem, runtime, frameworks e libs principais.
-- Formato típico: `[![Nome](URL-do-shield)](link-opcional)`
-- Exemplos de texto: Node.js 18+, Rails 8, PostgreSQL, Docker, Mermaid, License MIT.
-- Cores e estilo: manter consistente (for-the-badge ou flat; ver [reference.md](reference.md)).
+- Use **one line** of badges, no breaks, for language, runtime, main frameworks and libs.
+- Typical format: `[![Name](shield-URL)](optional-link)`
+- Example text: Node.js 18+, Rails 8, PostgreSQL, Docker, Mermaid, License MIT.
+- Colours and style: keep consistent (for-the-badge or flat; see [reference.md](reference.md)).
 
 ---
 
-## Mermaid e imagens
+## Mermaid and images
 
-- **Mermaid:** Se o utilizador quiser diagrama (fluxo, pipeline, arquitetura), propor o código Mermaid e indicar que no GitHub o Mermaid é renderizado nativamente; para .docx ou outros contextos, pode ser necessário exportar PNG (ex.: `mermaid-cli`) e referenciar a imagem no README.
-- **Preview:** Se houver imagem ou GIF de preview, colocar após a descrição, com legenda em *itálico*.
-
----
-
-## Tom e estilo
-
-- Linguagem clara e objetiva.
-- Listas e tabelas para comandos e estrutura.
-- Blocos de código com syntax highlighting (bash, javascript, etc.).
-- Manter o README navegável: TOC opcional em projetos grandes.
+- **Mermaid:** If the user wants a diagram (flow, pipeline, architecture), propose the Mermaid code and note that GitHub renders Mermaid natively; for .docx or other contexts, you may need to export PNG (e.g. `mermaid-cli`) and reference the image in the README.
+- **Preview:** If there is an image or GIF preview, place it after the description, with caption in *italics*.
 
 ---
 
-## Após gerar
+## Tone and style
 
-- Dizer ao utilizador que pode **alterar** qualquer parte.
-- Se faltar algo (ex.: variáveis de ambiente, testes), sugerir que se pode acrescentar numa próxima iteração.
+- Clear, objective language.
+- Lists and tables for commands and structure.
+- Code blocks with syntax highlighting (bash, javascript, etc.).
+- Keep the README navigable: optional TOC for large projects.
 
 ---
 
-## Referências
+## After generating
 
-- Estrutura detalhada e exemplos de blocos: [reference.md](reference.md).
+- Tell the user they can **change** any part.
+- If something is missing (e.g. env vars, tests), suggest it can be added in a next iteration.
+
+---
+
+## References
+
+- Detailed structure and block examples: [reference.md](reference.md).
