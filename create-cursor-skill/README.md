@@ -49,9 +49,12 @@ To use in all your projects, copy to `~/.cursor/skills/create-cursor-skill/`.
 
 ---
 
-## Source
+## Install
 
-From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills): `git clone -b create-cursor-skill https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/create-cursor-skill ~/.cursor/skills/`
+```bash
+git clone -b create-cursor-skill https://github.com/mariocosttaa/my-agent-skills.git
+cp -r my-agent-skills/create-cursor-skill ~/.cursor/skills/
+```
 
 ---
 
