@@ -23,6 +23,9 @@ Cursor skill to create and improve GitHub repository READMEs.
 | `reference.md` | Detailed structure, badge and section examples. |
 | `README.md` | This file — documentation for humans. |
 
-## Source
+## Install
 
-From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills): `git clone -b github-readme https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/github-readme ~/.cursor/skills/`
+```bash
+git clone -b github-readme https://github.com/mariocosttaa/my-agent-skills.git
+cp -r my-agent-skills/github-readme ~/.cursor/skills/
+```
