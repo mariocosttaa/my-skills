@@ -21,6 +21,9 @@ Cursor skill that guides writing **browser E2E tests** with **Playwright**.
 
 The skill applies when the user creates or edits browser E2E tests (Playwright, Page Objects, Cypress, login/UI flows, etc.).
 
-## Source
+## Install
 
-From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills): `git clone -b nestjs-e2e-tests https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/nestjs-e2e-tests ~/.cursor/skills/`
+```bash
+git clone -b nestjs-e2e-tests https://github.com/mariocosttaa/my-agent-skills.git
+cp -r my-agent-skills/nestjs-e2e-tests ~/.cursor/skills/
+```
