@@ -10,7 +10,7 @@ description: >
 
 # GIN Workflow — Requirement → Plan → Tasks → Overview
 
-Workflow per requirement in the repository. *Context:* the requirement comes from Jira (e.g. GIN-AZ-42); the user manages Kanban and PR. The skill should be **re-read at the start** (setup) and **during** (filling). Files: `requisitos.md`, `plan.md`, `tasks.md`, `overview.md`; `suggestions.md` is optional.
+Workflow per requirement in the repository. *Context:* the requirement comes from Jira (e.g. GIN-AZ-42); the user manages Kanban and PR. The skill should be **re-read at the start** (setup), **during** (filling) and **after merge** (cleanup). Files: `requisitos.md`, `plan.md`, `tasks.md`, `overview.md`; `suggestions.md` is optional. **Phase 3:** após merge/rebase para main/master/development, SEMPRE perguntar se remove a pasta `/<jira-code>/` e actualiza o README.
 
 ---
 
@@ -49,7 +49,7 @@ Plan, tasks, suggestions and overview throughout implementation.
 | `plan.md` | ✅ | Execution plan; fill during implementation. |
 | `tasks.md` | ✅ | Checklist `[ ]` / `[x]`; update during. |
 | `overview.md` | ✅ | Final summary (fill on completion). |
-| `suggestions.md` | Optional | Errors found and suggestions that do not depend on the requirement; with reference and location. |
+| `suggestions.md` | Mandatory when out-of-scope issues found | Errors found and suggestions that do not depend on the requirement; with reference and location. Create it whenever you discover problems outside the plan — do not edit code for those, document in suggestions instead. |
 | `qa-plan.md` | Optional | QA handoff: context, test instructions, credentials (fill when user requests QA handoff). |
 
 ### suggestions.md (optional)
@@ -101,7 +101,8 @@ Implement with Jest, mock the repository.
 
 - **plan.md**: Fill approach, decisions, order of work; update if the plan changes.
 - **tasks.md**: Mark `[x]` when done; add short descriptions below tasks; add new tasks if needed.
-- **suggestions.md** (optional): Record errors found and suggestions; always indicate the location (file/path) and objective.
+- **suggestions.md** (mandatory): **Always create and maintain** when you find issues, bugs or improvements **outside the current requirement**. Do not edit code for things that are not in the plan — record them in suggestions.md with location and objective.
+- **Analyse before editing**: Identify what belongs to the requirement vs what does not. Out-of-scope items → suggestions.md; in-scope items → implement.
 - Granular commits and descriptive messages on the feature branch.
 
 ### On completion
@@ -111,20 +112,39 @@ Implement with Jest, mock the repository.
 - **Update the README** if needed.
 - **Ask for QA handoff**: *"Do you need a QA context document to pass to the test team (for this new feature, fix, or removal)?"*
 
+### Phase 3: Post-merge (cleanup) — after rebase or merge to main, master or branch principal
+
+**SEMPRE perguntar** ao utilizador após merge ou rebase para main/master/development (ou branch principal do repo):
+
+> *"Queres que remova a pasta `/<jira-code>/` e actualize o README (remover referências à feature)?"*
+
+Se o utilizador confirmar:
+
+1. **Apagar** o directório `/<jira-code>/` (ex.: `GINAZ-19/`).
+2. **Editar o README**:
+   - Remover a linha da feature na secção Feature (se existir).
+   - Remover referências à pasta na tabela "Estrutura do projeto" (se existir).
+   - Se a secção Feature ficar vazia, removê-la.
+
 ### QA handoff (optional) — when user accepts
 
 If the user needs QA context:
 
-1. **Ask** what type of change: new feature, fix, or removal.
-2. **Offer deep research** if needed: *"I may need to explore [architecture, flows, dependencies] to give QA full context. Should I do that first?"*
-3. **Create `qa-plan.md`** in `/<jira-code>/` with:
+1. **Never assume any information.** If the agent does not know something, it **must ask** the user before creating or filling the plan.
+2. **Ask** what type of change: new feature, fix, or removal.
+3. **Ask test perspective** — *"Will QA test from a user perspective (end-user, UI, flows) or a technical/internal perspective (API, integration, logs)?"* Include this in the plan so the QA agent knows the focus.
+4. **Ask URL** — *"What is the URL to test?"* (e.g. `http://localhost:3000/login`). Do not assume localhost or a default.
+5. **Ask credentials** — *"What test account(s) should QA use? (email/user, password, role)"* Never invent or assume credentials. Include in the plan or note "to be provided by user".
+6. **Offer deep research** if needed: *"I may need to explore [architecture, flows, dependencies] to give QA full context. Should I do that first?"*
+7. **Create `qa-plan.md`** in `/<jira-code>/` with:
    - Summary of what was implemented/fixed/removed.
-   - Relevant context (URLs, flows, affected areas).
-   - **Account/credentials**: ask the user for test account details (e.g. login, password, roles) and include them in the plan — or note that the user must provide them separately (never store real production credentials).
+   - **Test perspective** (user vs technical/internal).
+   - **URL(s)** to test.
+   - **Account/credentials** (as provided by user, or "a fornecer pelo utilizador").
+   - Relevant context (flows, affected areas).
    - Suggested test scenarios, edge cases, and areas to focus on.
    - Environment setup (how to run, seed data, API keys if needed).
-4. **Ask** for any missing info: account credentials, environment URLs, special setup.
-5. Use **qa-agent** skill if the user wants automated browser testing or test-case design.
+8. Use **qa-agent** skill if the user wants automated browser testing or test-case design.
 
 See [assets/qa-plan.template.md](assets/qa-plan.template.md).
 
@@ -133,11 +153,13 @@ See [assets/qa-plan.template.md](assets/qa-plan.template.md).
 ## Repository README
 
 - **When:** When creating a new feature or on completion.
-- **How:** Use **github-readme**; ask before rewriting the entire README.
-- **Required content:** Section referencing the files per feature:
-  - `requisitos.md`, `plan.md`, `tasks.md`, `overview.md`; optionally `suggestions.md`, `qa-plan.md`.
-
-Example: "In each `<jira-code>/` folder there are `requisitos.md`, `plan.md`, `tasks.md`, `overview.md` and, optionally, `suggestions.md`, `qa-plan.md`."
+- **How:** Use **github-readme** skill for structure and style; follow the README order below.
+- **Placement:** A secção **Features** deve vir **imediatamente a seguir** à secção **Repositórios** (e antes de "Como funciona", Quick start, Comandos, etc.). Nunca colocar Features no fim do README.
+- **Required content (Features):** Secção com convenção e tabela de features:
+  - Frase introdutória: "Em cada pasta `/<código-jira>/` existem `requisitos.md`, `plan.md`, `tasks.md`, `overview.md` e, opcionalmente, `suggestions.md` e `qa-plan.md`."
+  - Tabela: colunas Requisito | Ficheiros (links para requisitos, plan, tasks, overview, etc.).
+  - Na tabela "Estrutura do projeto", incluir entrada `|<código-jira>/`| com descrição e exemplo.
+- **Order (GIN repos):** Title → Descrição → Repositórios → **Features** → Como funciona → Quick start → Comandos → Migrações e seeds → Estrutura do projeto → Variáveis de ambiente → resto.
 
 ---
 
@@ -161,5 +183,6 @@ See [reference.md](reference.md) for more.
 - **Branch**: name equals Jira code (e.g. `GIN-AZ-42`).
 - **tasks.md**: `[ ]` to do, `[x]` done; blank line between tasks; optional short description below.
 - **Commits**: granular and descriptive on the feature branch.
-- **README**: update in the start phase and on completion; include section linking to the feature files.
-- **QA handoff**: on completion, ask if user needs `qa-plan.md`; create it with context, credentials (ask user), and test scenarios; offer deep research if needed.
+- **README**: update in the start phase and on completion; secção Features **logo após Repositórios**; incluir convenção e tabela de features; usar github-readme para estrutura.
+- **QA handoff**: on completion, ask if user needs `qa-plan.md`; **never assume** URL, credentials, or perspective — ask the user for everything; create plan with test perspective (user vs technical), URL(s), credentials, and test scenarios.
+- **Post-merge cleanup**: após rebase ou merge para main/master/development, SEMPRE perguntar se remove a pasta `/<jira-code>/` e actualiza o README; se sim, apagar pasta e remover referências no README.

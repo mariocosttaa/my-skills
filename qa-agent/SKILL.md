@@ -1,6 +1,6 @@
 ---
 name: qa-agent
-version: 1.1
+version: 1.2
 description: >
   QA engineer skill. When testing web apps, UIs, or pages — ALWAYS use browser testing
   (browsermcp or mario-playwright-mcp). Use when the user wants QA, quality assurance,
@@ -22,12 +22,13 @@ Skill for acting as a QA engineer. **When testing web apps, UIs, or pages — al
 2. **Combine with user input** — Take what the user gives you (plan, scope, URL, context) and **combine** it with the previous context (if any). Then **clarify**:
    - **"Is this a new test run, or are you continuing from a previous QA session?"** If continuing, build on the prior overview. If new, start fresh.
 3. **Ask language** — "Report language: **en** (default), pt-pt, pt-br, es, fr — which do you prefer?" Default is **en** if the user does not specify. Use the chosen language for all output files (overview, errors, suggestions, test-results).
-4. **Ask credentials** — "Do you have test accounts, passwords, or other credentials I need?" If the plan includes login/auth and no credentials were given, **ask before starting** or when that flow is reached.
-5. **Get test plan/context** — The user will provide a plan, scope, or context. **Follow it strictly.** If none is given, ask: "What should I test? Please provide a test plan, scope, or list of flows to cover."
-6. **Ask user profiles** — **"Do you want to test all user profiles or only the normal user?"** Default: **all profiles**. Options: (a) **all profiles** — simulate 10 different user behaviours to catch varied bugs; (b) **normal only** — quick baseline. **Always ask before starting.** See [User profiles](#user-profiles).
-7. **Initialize folder structure** — Create `QA-AGENT/<project>/test/<run-folder>/` with `report/` and `browser/screenshots/`. Use run folder name: `<project>_<env>_<scope>_<YYYY-MM-DD_HH-mm-ss>`.
-8. **Write task-plan.md** — **Before navigating or running any test**, write `task-plan.md` with: what you will do, URL, scope, **test resources** (browser, resolution, type), and **profiles to test**. Do **not** proceed until `task-plan.md` is written. Use `assets/task-plan.template.md`.
-9. **Clean browser state** — Start with a clean browser: close and reopen the browser window, or use mario-playwright-mcp (which uses a fresh session). Clear console and network. Only reuse previous state when explicitly continuing from a prior run.
+4. **Ask URL** — "What is the URL to test?" (e.g. `http://localhost:3000/login`). **Never assume** a default URL. If not provided, ask before starting.
+5. **Ask credentials** — "What test account(s) do I need? (email/user, password)". If the plan includes login/auth, **ask before starting**. **Never assume or invent** credentials.
+6. **Get test plan/context** — The user will provide a plan, scope, or context. **Follow it strictly.** If none is given, ask: "What should I test? Please provide a test plan, scope, or list of flows to cover."
+7. **Ask user profiles** — **"Do you want to test all user profiles or only the normal user?"** Default: **all profiles**. Options: (a) **all profiles** — simulate 10 different user behaviours; (b) **normal only** — quick baseline. **Always ask before starting.** See [User profiles](#user-profiles).
+8. **Initialize folder structure** — Create `QA-AGENT/<project>/test/<run-folder>/` with `report/` and `browser/screenshots/`. Use run folder name: `<project>_<env>_<scope>_<YYYY-MM-DD_HH-mm-ss>`.
+9. **Write task-plan.md** — **Before navigating or running any test**, write `task-plan.md` with: what you will do, URL, scope, **test resources** (browser, resolution, type), and **profiles to test**. Do **not** proceed until `task-plan.md` is written. Use `assets/task-plan.template.md`.
+10. **Clean browser state** — Start with a clean browser: close and reopen the browser window, or use mario-playwright-mcp (which uses a fresh session). Clear console and network. Only reuse previous state when explicitly continuing from a prior run.
 
 ---
 
@@ -126,14 +127,15 @@ When using **user-mario-playwright-mcp**, these tools support **saving to disk**
 
 **Save to file (mario-playwright-mcp only):** Pass `filename` with full path into `.../browser/` and use **descriptive names** (e.g. `console-after-login.log`, `console-contracts-page.log`). Use level `error` when debugging; `warning` for broader capture. **Never** use paths that would write to workspace root (avoid `console-*.log` in root). Report any errors; include relevant excerpts in `report/errors.md`.
 
-### Network requests and payloads — capture API details (mario-playwright-mcp only)
+### Network requests, responses and payloads — mandatory capture (mario-playwright-mcp)
 
-**Call `browser_network_requests`** to inspect API calls, status codes, and payloads:
+**Always call `browser_network_requests`** after every significant action (login, submit, create, delete, etc.). Do not skip this step.
 
 - Use `includeStatic: false` to focus on XHR/fetch (API calls).
-- **Save to file** — Pass `filename` with full path into `.../browser/` (e.g. `network-after-login.json`). Include response payloads when the MCP provides them.
-- Check for: 4xx/5xx status, failed requests, CORS errors, unexpected responses.
-- Include failed or relevant requests in `errors.md` when reporting API-related issues.
+- **Save to file** — Pass `filename` with full path into `.../browser/` (e.g. `network-after-login.json`, `network-after-create.json`).
+- **Check MCP capability first** — Before the run, verify in the MCP tool descriptors whether `browser_network_requests` returns: (a) only URL + status; (b) request/response bodies/payloads. Document in the report what was captured.
+- **Report** — Include in `errors.md` or `overview.md`: failed requests (4xx/5xx), CORS errors, unexpected status; if payloads were captured, reference them when debugging API issues.
+- **Limitation** — If the MCP returns only URL and status (no request/response bodies), state that in the report: "Network capture: URLs and status only; payloads not available from MCP." The agent should still capture and save network data; every bit helps.
 
 ### Element interaction rules
 
@@ -201,10 +203,10 @@ Example: `gin_local_smoke_2026-03-05_12-50-49`
 After **every** significant action (submit, create, delete, save, login, etc.):
 
 1. **Snapshot** — `browser_snapshot` to see the next screen state.
-2. **Screenshot** — If errors, overlay, or unexpected UI appear, **immediately** take `browser_take_screenshot` with a descriptive filename.
+2. **Screenshot** — Take screenshot. **Verify the image content** (read it) before assigning a descriptive filename; only then save/rename. If errors/overlay appear, the filename must reflect that (e.g. `error-overlay-after-create.png`), not "success".
 3. **Console** — `browser_console_messages` (level: error). **If mario-playwright-mcp:** pass `filename` with full path to `.../browser/console-<context>.log` (e.g. `console-after-login.log`).
-4. **Network** — **If mario-playwright-mcp:** `browser_network_requests` (includeStatic: false) with `filename` to `.../browser/network-<context>.json`.
-5. **Report** — Include findings in `errors.md`; link screenshots; reference console/network when relevant.
+4. **Network** — **If mario-playwright-mcp:** `browser_network_requests` (includeStatic: false) with `filename` to `.../browser/network-<context>.json`. **Always capture**; document in report what the MCP provided (URLs, status, payloads if available).
+5. **Report** — Include findings in `errors.md`; link screenshots (with names that match what the image actually shows); reference console/network when relevant.
 
 **Example:** After "Create contract" → page shows "Uncaught runtime errors" overlay → take screenshot → capture console → check network → add to errors.md with screenshot link. Do **not** declare success or write overview without this analysis.
 
@@ -336,10 +338,10 @@ Use the structure in [assets/test-case.template.md](assets/test-case.template.md
 | Pre-test | Check previous runs. Ask **new or continuation**. Ask **language** (default en). Ask **credentials**. Ask **test plan**. Ask **profiles** (all or normal only; default all). |
 | Plan | **Follow the test plan strictly.** Do not deviate without user approval. |
 | Post-action | **Always analyze the next screen** after each significant action (submit, create, save, etc.). Snapshot + console + network when relevant. |
-| Screenshots | **Take screenshots when errors appear** (overlay, validation, crash). Save to `browser/screenshots/`. Filename = where + why. Link in report/errors.md. |
+| Screenshots | **Take screenshot → read/view image first → then assign filename** based on what it actually shows. Never name "success" if the image shows an error. Save to `browser/screenshots/`. Link in report with accurate name. |
 | Output structure | `report/` for all .md; `browser/` for console, network, screenshots. Never save to workspace root. |
 | Console | Call `browser_console_messages`; **mario-playwright:** pass `filename` to `.../browser/console-<context>.log` (descriptive name). |
-| Network | **mario-playwright only:** `browser_network_requests` with `filename` to `.../browser/network-<context>.json` (include response payloads when available). |
+| Network | **mario-playwright only:** **Always** call `browser_network_requests` after significant actions; save to `.../browser/network-<context>.json`. Document in report what the MCP returned (URLs, status, payloads if available); if payloads are not available, state that. |
 | Overview last | Write overview only after full flow and post-action analysis are done. |
 | Element refs | Always from `browser_snapshot`; re-snapshot after dynamic updates. |
 | Bug hunting | Try unexpected inputs and flows; report bugs even if outside the plan. |
@@ -348,18 +350,26 @@ Use the structure in [assets/test-case.template.md](assets/test-case.template.md
 
 ---
 
-## Screenshot naming
+## Screenshot naming — verify before naming
 
-Each screenshot filename should describe **where** and **why**:
+**Never assign a filename based on assumptions.** The image might show something different (e.g. an error overlay instead of success).
 
-| Good | Bad |
-|------|-----|
-| `homepage-hero-loaded.png` | `01.png` |
-| `login-form-empty-submit-validation-error.png` | `screenshot2.png` |
-| `checkout-step2-payment-fields-visible.png` | `img.png` |
-| `dashboard-after-login.png` | `page.png` |
+**Workflow:**
+1. **Take** screenshot (use a neutral temp name if needed, e.g. `screenshot-after-action.png`).
+2. **Read/view** the saved image with the Read tool (images are supported) to see what it actually shows.
+3. **Then** assign the definitive filename (or rename) according to what the image **really** displays.
 
-Take as many screenshots as needed — initial load, after actions, error states, important UI elements.
+| If image actually shows | Use filename like |
+|-------------------------|-------------------|
+| Success message, contract created | `contract-created-success.png` |
+| Error overlay, "Uncaught runtime errors" | `error-overlay-after-create.png` |
+| Validation errors on form | `login-form-validation-errors.png` |
+| Empty/broken layout | `broken-layout-dashboard.png` |
+
+**Good naming (after verification):** `homepage-hero-loaded.png`, `login-form-empty-submit-validation-error.png`.  
+**Bad:** `01.png`, `screenshot2.png`, `contract-created-success.png` when the image actually shows an error overlay.
+
+Take as many screenshots as needed. **Always verify the image content before linking it in reports with a descriptive name.**
 
 ---
 

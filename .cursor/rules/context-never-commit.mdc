@@ -1,0 +1,15 @@
+---
+description: context.md is local-only, never commit it
+alwaysApply: true
+---
+
+# context.md — Never Commit
+
+The file **context.md** at the repo root is **internal/local guidance** for the agent and maintainers. It contains versioning, branches, checklists, and paths.
+
+**Rule:** `context.md` must **never** be committed. It is listed in `.gitignore`.
+
+- Do not add it to `git add`
+- Do not include it in commits
+- Do not suggest committing it
+- When updating versioning/branches docs, update `context.md` locally; the README is the public source of truth
