@@ -24,11 +24,14 @@ Cursor skill for the **GIN project workflow** — Jira + repo, per-requirement p
 
 ## Install
 
+**Latest:**
 ```bash
-git clone -b gin-workflow https://github.com/mariocosttaa/my-agent-skills.git
+git clone https://github.com/mariocosttaa/my-agent-skills.git
 cp -r my-agent-skills/gin-workflow ~/.cursor/skills/
 ```
 
+**Specific version:** clone repo → checkout `versions` → copy `gin-workflow/versions/vX.Y/` to `~/.cursor/skills/gin-workflow/`.
+
 ---
 
-→ [See all skills on main](https://github.com/mariocosttaa/my-agent-skills)
+→ [See all skills](https://github.com/mariocosttaa/my-agent-skills)

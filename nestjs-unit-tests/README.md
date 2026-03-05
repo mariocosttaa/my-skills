@@ -24,11 +24,14 @@ Cursor skill for **unit tests** in NestJS with Jest — co-location, mocks, serv
 
 ## Install
 
+**Latest:**
 ```bash
-git clone -b nestjs-unit-tests https://github.com/mariocosttaa/my-agent-skills.git
+git clone https://github.com/mariocosttaa/my-agent-skills.git
 cp -r my-agent-skills/nestjs-unit-tests ~/.cursor/skills/
 ```
 
+**Specific version:** clone repo → checkout `versions` → copy `nestjs-unit-tests/versions/vX.Y/` to `~/.cursor/skills/nestjs-unit-tests/`.
+
 ---
 
-→ [See all skills on main](https://github.com/mariocosttaa/my-agent-skills)
+→ [See all skills](https://github.com/mariocosttaa/my-agent-skills)

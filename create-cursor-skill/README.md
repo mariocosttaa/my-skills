@@ -25,13 +25,16 @@ Cursor skill for **creating Agent Skills** — folder structure, SKILL.md format
 
 ## Install
 
+**Latest:**
 ```bash
-git clone -b create-cursor-skill https://github.com/mariocosttaa/my-agent-skills.git
+git clone https://github.com/mariocosttaa/my-agent-skills.git
 cp -r my-agent-skills/create-cursor-skill ~/.cursor/skills/
 ```
+
+**Specific version:** clone repo → checkout `versions` → copy `create-cursor-skill/versions/vX.Y/` to `~/.cursor/skills/create-cursor-skill/`.
 
 **References:** [Cursor — Agent Skills](https://cursor.com/docs/context/skills) · [Cursor — Rules](https://cursor.com/docs/context/rules) · [agentskills.io](https://agentskills.io/)
 
 ---
 
-→ [See all skills on main](https://github.com/mariocosttaa/my-agent-skills)
+→ [See all skills](https://github.com/mariocosttaa/my-agent-skills)
