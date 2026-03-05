@@ -26,11 +26,14 @@ Cursor skill for **browser E2E tests** with **Playwright** — POM, selectors, f
 
 ## Install
 
+**Latest:**
 ```bash
-git clone -b nestjs-e2e-tests https://github.com/mariocosttaa/my-agent-skills.git
+git clone https://github.com/mariocosttaa/my-agent-skills.git
 cp -r my-agent-skills/nestjs-e2e-tests ~/.cursor/skills/
 ```
 
+**Specific version:** clone repo → checkout `versions` → copy `nestjs-e2e-tests/versions/vX.Y/` to `~/.cursor/skills/nestjs-e2e-tests/`.
+
 ---
 
-→ [See all skills on main](https://github.com/mariocosttaa/my-agent-skills)
+→ [See all skills](https://github.com/mariocosttaa/my-agent-skills)
