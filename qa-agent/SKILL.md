@@ -1,5 +1,6 @@
 ---
 name: qa-agent
+version: 1.1
 description: >
   QA engineer skill. When testing web apps, UIs, or pages — ALWAYS use browser testing
   (browsermcp or mario-playwright-mcp). Use when the user wants QA, quality assurance,
@@ -23,9 +24,47 @@ Skill for acting as a QA engineer. **When testing web apps, UIs, or pages — al
 3. **Ask language** — "Report language: **en** (default), pt-pt, pt-br, es, fr — which do you prefer?" Default is **en** if the user does not specify. Use the chosen language for all output files (overview, errors, suggestions, test-results).
 4. **Ask credentials** — "Do you have test accounts, passwords, or other credentials I need?" If the plan includes login/auth and no credentials were given, **ask before starting** or when that flow is reached.
 5. **Get test plan/context** — The user will provide a plan, scope, or context. **Follow it strictly.** If none is given, ask: "What should I test? Please provide a test plan, scope, or list of flows to cover."
-6. **Initialize folder structure** — Create `QA-AGENT/<project>/test/<run-folder>/` with `report/` and `browser/screenshots/`. Use run folder name: `<project>_<env>_<scope>_<YYYY-MM-DD_HH-mm-ss>`.
-7. **Write task-plan.md** — **Before navigating or running any test**, write `task-plan.md` in the run folder with: what you will do, URL, scope, and plan for this run. Do **not** proceed to testing until `task-plan.md` is written. Use the template from `assets/task-plan.template.md`.
-8. **Clean browser state** — Start with a clean browser: close and reopen the browser window, or use mario-playwright-mcp (which uses a fresh session). Clear console and network. Only reuse previous state when explicitly continuing from a prior run.
+6. **Ask user profiles** — **"Do you want to test all user profiles or only the normal user?"** Default: **all profiles**. Options: (a) **all profiles** — simulate 10 different user behaviours to catch varied bugs; (b) **normal only** — quick baseline. **Always ask before starting.** See [User profiles](#user-profiles).
+7. **Initialize folder structure** — Create `QA-AGENT/<project>/test/<run-folder>/` with `report/` and `browser/screenshots/`. Use run folder name: `<project>_<env>_<scope>_<YYYY-MM-DD_HH-mm-ss>`.
+8. **Write task-plan.md** — **Before navigating or running any test**, write `task-plan.md` with: what you will do, URL, scope, **test resources** (browser, resolution, type), and **profiles to test**. Do **not** proceed until `task-plan.md` is written. Use `assets/task-plan.template.md`.
+9. **Clean browser state** — Start with a clean browser: close and reopen the browser window, or use mario-playwright-mcp (which uses a fresh session). Clear console and network. Only reuse previous state when explicitly continuing from a prior run.
+
+---
+
+## User profiles
+
+Use **user profiles** to simulate different behaviours and surface unexpected bugs, security issues, and edge cases. See [assets/user-profiles.template.md](assets/user-profiles.template.md).
+
+| Profile | Behaviour |
+|---------|-----------|
+| **normal** | Typical user; follows expected flow (default start) |
+| **power-clicker** | Rapid clicks, double-clicks, spam buttons |
+| **over-editor** | Changes fields repeatedly, clears and re-types |
+| **url-manipulator** | Adds query params, modifies URL, deep links |
+| **keyboard-heavy** | Tab, Enter, shortcuts; minimal mouse |
+| **impatient** | Submits before filling, skips steps |
+| **copy-paster** | Long text, special chars, emoji, HTML |
+| **back-button** | Browser back, refresh mid-flow |
+| **edge-case** | Empty, very long, invalid formats |
+| **security-tester** | SQL-like, XSS attempts, invalid auth |
+
+- **Start with normal** — For simple tests or baseline.
+- **Test all profiles** — Full coverage; different behaviours reveal different bugs. **Default.**
+- **Ask every time** — "Test all profiles or only normal?" before starting.
+
+---
+
+## Test resources (record in every run)
+
+Document **test resources** in `task-plan.md` and `report/overview.md`:
+
+| Resource | Example |
+|----------|---------|
+| **Browser** | Chromium (Playwright), Chrome, Firefox |
+| **Resolution** | 1920×1080, 1280×720, mobile viewport |
+| **URLs accessed** | Full list of URLs visited during the test |
+| **Type of test** | Smoke, regression, exploratory, security |
+| **User profile(s)** | normal, all, power-clicker, etc. |
 
 ---
 
@@ -173,7 +212,7 @@ After **every** significant action (submit, create, delete, save, login, etc.):
 
 ## Browser testing workflow
 
-1. **Pre-test** — Check previous runs; combine with user input; ask if new or continuation; ask **language** (default **en**; options: en, pt-pt, pt-br, es, fr), credentials, and test plan. **Stop if no plan** until user provides it.
+1. **Pre-test** — Check previous runs; combine with user input; ask if new or continuation; ask **language** (default en), **credentials**, **test plan**, and **user profiles** (all or normal only; default all). **Stop if no plan** until user provides it.
 2. **Check MCP** — **Mandatory.** Verify which browser MCP is available; **show the user** which one you will use. Prefer mario-playwright-mcp (screenshots to disk). If none, inform and wait.
 3. **Create output** — Create `QA-AGENT/<project>/project-context.md` (if new project), then `test/<run-folder>/` with `task-plan.md`, `report/`, and `browser/screenshots/` **before** any navigation.
 4. **Follow plan strictly** — Execute the test plan step by step.
@@ -226,6 +265,7 @@ Actively try to **break** the UI and surface defects:
 - **Unusual sequences:** Submit before filling; click repeatedly; go back mid-flow; refresh during loading
 - **Edge cases:** Zero/negative numbers, past/future dates, invalid formats
 - **Stress behaviour:** Rapid clicks; spam submit; open many tabs (if applicable)
+- **URL manipulation:** Add query params (`?foo=bar`, `?id=1'OR'1'='1`), change paths, use invalid/deep links. Understand how the app handles malformed URLs, params, and security.
 
 **After each unexpected action:** Call `browser_get_console_logs` to catch JS errors, and check the snapshot/screenshot for broken layout or unhandled error states. Report any crashes, uncaught errors, or confusing UX.
 
@@ -293,7 +333,7 @@ Use the structure in [assets/test-case.template.md](assets/test-case.template.md
 | Rule | Detail |
 |------|--------|
 | MCP check | **Show the user which browser MCP you will use** before starting. Prefer mario-playwright-mcp (screenshots to disk). If none available, stop and inform. |
-| Pre-test | Check previous runs. Ask if **new or continuation**. Ask **language** (default en; options: pt-pt, pt-br, es, fr). Ask credentials, test plan. |
+| Pre-test | Check previous runs. Ask **new or continuation**. Ask **language** (default en). Ask **credentials**. Ask **test plan**. Ask **profiles** (all or normal only; default all). |
 | Plan | **Follow the test plan strictly.** Do not deviate without user approval. |
 | Post-action | **Always analyze the next screen** after each significant action (submit, create, save, etc.). Snapshot + console + network when relevant. |
 | Screenshots | **Take screenshots when errors appear** (overlay, validation, crash). Save to `browser/screenshots/`. Filename = where + why. Link in report/errors.md. |
@@ -328,4 +368,4 @@ Take as many screenshots as needed — initial load, after actions, error states
 - [STRUCTURE.md](STRUCTURE.md) — Output folder hierarchy: `QA-AGENT/<project>/test/<timestamp>/`
 - [reference.md](reference.md) — Best practices, principles, automation strategy
 - [examples.md](examples.md) — Concrete MCP workflow examples, including post-action error overlay
-- [assets/](assets/) — Templates: task-plan, overview, errors, suggestions, test-results
+- [assets/](assets/) — Templates: task-plan, overview, errors, suggestions, test-results, user-profiles

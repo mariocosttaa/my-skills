@@ -1,6 +1,6 @@
 # qa-agent
 
-Cursor skill for **QA engineering** — browser testing, code review, UI/UX evaluation, structured reports.
+**v1.1** — Cursor skill for **QA engineering** — browser testing, code review, UI/UX evaluation, structured reports.
 
 > **Required: Browser MCP** — This skill needs **mario-playwright-mcp** or **browsermcp** in `.cursor/mcp.json`. Without MCP, the agent cannot run browser tests. Add the MCP server and restart Cursor before use.
 
@@ -9,10 +9,9 @@ Cursor skill for **QA engineering** — browser testing, code review, UI/UX eval
 ## What it does
 
 - Browser-based testing (navigate, snapshot, click, type, screenshot) via **Browser MCP**
-- Code review (security, correctness, architecture)
-- UI/UX evaluation and ratings
-- Post-action analysis (inspect screen after submit/create/save)
-- Console and network capture for debugging
+- **User profiles** — 10 profiles (normal, power-clicker, url-manipulator, security-tester, etc.) to simulate different behaviours; ask user: all profiles or normal only (default: all)
+- **Test resources** — Record browser, resolution, URLs accessed, type of test in every run
+- Code review, UI/UX evaluation, post-action analysis
 - Reports in `QA-AGENT/<project>/test/<timestamp>/` with `report/` and `browser/` folders
 
 ## When to use
@@ -35,6 +34,7 @@ Cursor skill for **QA engineering** — browser testing, code review, UI/UX eval
 | `STRUCTURE.md` | Output folder layout |
 | `reference.md` | Best practices |
 | `examples.md` | MCP workflow examples |
+| `assets/user-profiles.template.md` | 10 user profiles reference |
 
 ## Install
 

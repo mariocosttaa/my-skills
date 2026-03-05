@@ -29,7 +29,7 @@
 | **nestjs-e2e-tests** | E2E with Playwright (NestJS) | `git clone -b nestjs-e2e-tests https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/nestjs-e2e-tests ~/.cursor/skills/` |
 | **nestjs-integration-tests** | NestJS API + DB integration tests | `git clone -b nestjs-integration-tests https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/nestjs-integration-tests ~/.cursor/skills/` |
 | **nestjs-unit-tests** | NestJS unit tests (Jest) | `git clone -b nestjs-unit-tests https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/nestjs-unit-tests ~/.cursor/skills/` |
-| **qa-agent** | QA + browser testing | `git clone -b qa-agent https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/qa-agent ~/.cursor/skills/` |
+| **qa-agent** | QA + browser testing, user profiles, test resources | `git clone -b qa-agent https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/qa-agent ~/.cursor/skills/` |
 
 **Install all:** `git clone https://github.com/mariocosttaa/my-agent-skills.git && cd my-agent-skills && cp -r create-* docker gin-workflow git-* github-readme nestjs-* qa-agent ~/.cursor/skills/`
 

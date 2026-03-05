@@ -9,6 +9,25 @@
 
 ---
 
+## Test resources
+
+| Resource | Value |
+|----------|-------|
+| **Browser** | [e.g. Chromium (Playwright), Chrome] |
+| **Resolution** | [e.g. 1920×1080] |
+| **Type of test** | [Smoke / Regression / Exploratory / Security] |
+| **User profile(s)** | [normal / all / power-clicker, over-editor, etc.] |
+
+---
+
+## URLs accessed (update during test)
+
+- [e.g. http://localhost:3000]
+- [e.g. http://localhost:3000/login]
+- [...]
+
+---
+
 ## Task / plan (what you will do)
 
 [Scope, flows to test, steps you will execute — write this before navigating or running tests]
