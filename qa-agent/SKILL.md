@@ -17,13 +17,15 @@ Skill for acting as a QA engineer. **When testing web apps, UIs, or pages — al
 
 **Before any testing, you must:**
 
-1. **Clean browser state** — Start with a clean browser: close and reopen the browser window, or use mario-playwright-mcp (which uses a fresh session). Clear console and network. Only reuse previous state when explicitly continuing from a prior run.
-2. **Check previous context** — Look for `QA-AGENT/<project-name>/` and `test/` folders. Read `project-context.md` if present, then the most recent run's `task-plan.md` and `report/overview.md` to understand what was tested, what was found, and scope. Use as context for continuity.
+1. **Check previous context** — Look for `QA-AGENT/<project-name>/` and `test/` folders. Read `project-context.md` if present, then the most recent run's `task-plan.md` and `report/overview.md` to understand what was tested, what was found, and scope. Use as context for continuity.
 2. **Combine with user input** — Take what the user gives you (plan, scope, URL, context) and **combine** it with the previous context (if any). Then **clarify**:
    - **"Is this a new test run, or are you continuing from a previous QA session?"** If continuing, build on the prior overview. If new, start fresh.
 3. **Ask language** — "Report language: **en** (default), pt-pt, pt-br, es, fr — which do you prefer?" Default is **en** if the user does not specify. Use the chosen language for all output files (overview, errors, suggestions, test-results).
 4. **Ask credentials** — "Do you have test accounts, passwords, or other credentials I need?" If the plan includes login/auth and no credentials were given, **ask before starting** or when that flow is reached.
 5. **Get test plan/context** — The user will provide a plan, scope, or context. **Follow it strictly.** If none is given, ask: "What should I test? Please provide a test plan, scope, or list of flows to cover."
+6. **Initialize folder structure** — Create `QA-AGENT/<project>/test/<run-folder>/` with `report/` and `browser/screenshots/`. Use run folder name: `<project>_<env>_<scope>_<YYYY-MM-DD_HH-mm-ss>`.
+7. **Write task-plan.md** — **Before navigating or running any test**, write `task-plan.md` in the run folder with: what you will do, URL, scope, and plan for this run. Do **not** proceed to testing until `task-plan.md` is written. Use the template from `assets/task-plan.template.md`.
+8. **Clean browser state** — Start with a clean browser: close and reopen the browser window, or use mario-playwright-mcp (which uses a fresh session). Clear console and network. Only reuse previous state when explicitly continuing from a prior run.
 
 ---
 

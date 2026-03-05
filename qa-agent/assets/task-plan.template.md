@@ -1,5 +1,7 @@
 # Task plan — [Project Name] / [URL]
 
+> **Write this file before starting any test.** It defines what you will do in this run.
+
 **Date:** [YYYY-MM-DD HH:mm]  
 **Project:** [e.g. gin]  
 **URL tested:** [e.g. http://localhost:3000]  
@@ -7,9 +9,9 @@
 
 ---
 
-## Task / plan
+## Task / plan (what you will do)
 
-[What was requested to test — scope, flows, context]
+[Scope, flows to test, steps you will execute — write this before navigating or running tests]
 
 ---
 

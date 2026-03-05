@@ -25,6 +25,9 @@ Cursor skill for **commit messages** and **branch flow**: file grouping, Convent
 - **reference.md** — Conventional Commits, SemVer, revert, branch strategies.
 - **README.md** — This file (for humans; not injected into the agent).
 
-## Source
+## Install
 
-From [my-agent-skills](https://github.com/mariocosttaa/my-agent-skills): `git clone -b git-commits https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/git-commits ~/.cursor/skills/`
+```bash
+git clone -b git-commits https://github.com/mariocosttaa/my-agent-skills.git
+cp -r my-agent-skills/git-commits ~/.cursor/skills/
+```
