@@ -1,30 +1,27 @@
-# Skill: git-commits
+# git-commits
 
-Cursor skill for **commit messages** and **branch flow**: file grouping, Conventional Commits format, and checkout/stash/push workflow for feature branches.
+Cursor skill for **commit messages** and **branch flow**: Conventional Commits, file grouping, and stash/checkout workflow.
+
+## What this skill does
+
+- **Commit format** — `type[(scope)]: description` + optional bullet body (feat, fix, docs, refactor, etc.).
+- **Grouping** — Focus per commit; related files together; avoid mixing unrelated changes.
+- **Branch workflow** — Stash → checkout feature branch → pop → commit → push.
+- **Rules** — Asks commit language (EN or other); never adds `Made-with: Cursor` or similar trailers (mandatory).
 
 ## When to use
 
 - Writing or reviewing commit messages.
 - Deciding how to group files into commits.
-- Switching branch while carrying changes (stash → checkout → pop → commit → push).
-- Following repository commit rules.
-
-## Main content (SKILL.md)
-
-- **No Made-with trailer** — Never add `Made-with: Cursor` or similar to commit messages. Mandatory.
-- Ask commit language (EN or other) and, when in doubt, ask before acting.
-- Grouping guideline (focus per commit; file count subjective).
-- Format: `type[(scope)]: description` + bullet body.
-- Types: feat, fix, docs, style, refactor, perf, test, ci, build, chore.
-- Good and bad examples.
-- Workflow: stash → checkout → pop → commit → push for feature branch.
-- Pre-commit checklist.
+- Switching branch while carrying uncommitted changes.
 
 ## Files
 
-- **SKILL.md** — Agent instructions.
-- **reference.md** — Conventional Commits, SemVer, revert, branch strategies.
-- **README.md** — This file (for humans; not injected into the agent).
+| File | Use |
+|------|-----|
+| `SKILL.md` | Agent instructions |
+| `reference.md` | Conventional Commits, SemVer, revert, branch strategies |
+| `README.md` | This file (for humans) |
 
 ## Install
 
@@ -32,3 +29,7 @@ Cursor skill for **commit messages** and **branch flow**: file grouping, Convent
 git clone -b git-commits https://github.com/mariocosttaa/my-agent-skills.git
 cp -r my-agent-skills/git-commits ~/.cursor/skills/
 ```
+
+---
+
+→ [See all skills on main](https://github.com/mariocosttaa/my-agent-skills)
