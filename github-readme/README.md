@@ -22,11 +22,14 @@ Cursor skill for **GitHub READMEs** — structure, badges, Mermaid, quick start,
 
 ## Install
 
+**Latest:**
 ```bash
-git clone -b github-readme https://github.com/mariocosttaa/my-agent-skills.git
+git clone https://github.com/mariocosttaa/my-agent-skills.git
 cp -r my-agent-skills/github-readme ~/.cursor/skills/
 ```
 
+**Specific version:** clone repo → checkout `versions` → copy `github-readme/versions/vX.Y/` to `~/.cursor/skills/github-readme/`.
+
 ---
 
-→ [See all skills on main](https://github.com/mariocosttaa/my-agent-skills)
+→ [See all skills](https://github.com/mariocosttaa/my-agent-skills)
