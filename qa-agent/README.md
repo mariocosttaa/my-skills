@@ -1,32 +1,28 @@
 # qa-agent
 
-**v1.4** — Cursor skill for **QA engineering** — browser testing, code review, UI/UX evaluation, structured reports.
+**v1.4** — Cursor skill for **QA engineering**: browser testing, user profiles, test resources, structured reports.
 
-> **Required: Browser MCP** — This skill uses **[mario-playwright-mcp](https://github.com/mariocosttaa/mario-playwright-mcp)** (recommended) or **browsermcp** in `.cursor/mcp.json`. Without MCP, the agent cannot run browser tests. Add the MCP server and restart Cursor before use.
+> **Required: Browser MCP** — [mario-playwright-mcp](https://github.com/mariocosttaa/mario-playwright-mcp) (recommended) or **browsermcp** in `.cursor/mcp.json`. Without MCP, the agent cannot run browser tests.
 
----
+## What this skill does
 
-## What it does
-
-- Browser-based testing (navigate, snapshot, click, type, screenshot) via **Browser MCP**
-- **User profiles** — 10 profiles (normal, power-clicker, url-manipulator, security-tester, etc.) to simulate different behaviours; ask user: all profiles or normal only (default: all)
-- **Test resources** — Record browser, resolution, URLs accessed, type of test in every run
-- Code review, UI/UX evaluation, post-action analysis
-- Reports in `QA-AGENT/<project>/test/<timestamp>/` with `report/` and `browser/` folders
+- **Browser testing** — Navigate, snapshot, click, type, screenshot via Browser MCP.
+- **10 user profiles** — normal, power-clicker, url-manipulator, security-tester, etc. to simulate different behaviours.
+- **Test resources** — Records browser, resolution, URLs, test type in every run.
+- **Output** — `QA-AGENT/<project>/test/<timestamp>/` with `report/` and `browser/` folders.
+- **Workflow** — Task plan before testing, post-action analysis, console and network capture.
 
 ## When to use
 
-- User wants to **test a website**, test in browser, test a page
-- QA, quality assurance, test cases, regression, inspect page, debug console
+- Test a website, page, or app in the browser.
+- QA, regression, test cases, inspect page, debug console.
 
 ## Prerequisites
 
 | Requirement | Details |
 |-------------|---------|
-| **Browser MCP** | [mario-playwright-mcp](https://github.com/mariocosttaa/mario-playwright-mcp) (recommended) or `browsermcp` in `.cursor/mcp.json` |
-| App reachable | Dev server or deployed URL |
-
-This skill is designed to work with **mario-playwright-mcp**, which provides network payload capture, screenshots to workspace, and `.mcp-output` organization.
+| **Browser MCP** | mario-playwright-mcp or browsermcp in `.cursor/mcp.json` |
+| **App** | Dev server or deployed URL |
 
 ## Files
 
@@ -45,3 +41,7 @@ This skill is designed to work with **mario-playwright-mcp**, which provides net
 git clone -b qa-agent https://github.com/mariocosttaa/my-agent-skills.git
 cp -r my-agent-skills/qa-agent ~/.cursor/skills/
 ```
+
+---
+
+→ [See all skills on main](https://github.com/mariocosttaa/my-agent-skills)

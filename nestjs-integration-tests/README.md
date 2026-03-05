@@ -1,35 +1,28 @@
-# NestJS Integration Tests skill
+# nestjs-integration-tests
 
-Cursor skill that guides writing **integration tests** in NestJS (API + DB) with Supertest.
+Cursor skill for **integration tests** in NestJS (API + DB) with Supertest, factories, deterministic dates.
 
-## What it covers
+## What this skill does
 
-- **Placement and naming:** Files in `test/`, named `*.e2e-spec.ts` or `*.integration-spec.ts`.
-- **Test data:** **Factories** in `test/factories/` with overrides — do not define objects inline; optionally **fixtures** in `test/fixtures/` for static data.
-- **Dates:** **Deterministic dates** via Jest fake timers and helper in `test/helpers/date.helper.ts` (`TEST_DATE`, `useFakeTime()`); use in factories and asserts.
-- **HTTP:** Supertest with `request(app.getHttpServer())`; app created with `Test.createTestingModule` and `createNestApplication()`.
-- **Database:** Use of separate test DB and cleanup between tests when needed.
-- **Comments:** In English, 1–2 lines, objective (same pattern as unit tests skill).
+- **Placement** — `test/`, `*.e2e-spec.ts` or `*.integration-spec.ts`.
+- **Factories** — `test/factories/` with overrides; no inline objects; optionally `test/fixtures/` for static data.
+- **Dates** — Jest fake timers, `date.helper.ts` (`TEST_DATE`, `useFakeTime()`).
+- **HTTP** — Supertest, `Test.createTestingModule`, `createNestApplication()`.
+- **Database** — Separate test DB, cleanup between tests.
 
-## What it does not cover
+## When to use
 
-- **Unit** tests — see nestjs-unit-tests skill.
-- **Browser E2E** tests (Playwright, Cypress).
+- Integration/e2e tests in NestJS, Supertest, factories, test DB.
 
-## Recommended structure
+**Not for:** unit tests (nestjs-unit-tests) or browser E2E (nestjs-e2e-tests).
 
-```
-test/
-  *.e2e-spec.ts
-  factories/       ← user.factory.ts, create-user-dto.factory.ts, etc.
-  fixtures/        ← static data (optional)
-  helpers/
-    date.helper.ts
-```
+## Files
 
-## Activation
-
-The skill applies when the user creates or edits integration/e2e tests in NestJS (files in `test/`, `*.e2e-spec.ts`, Supertest, factories, test DB, etc.).
+| File | Use |
+|------|-----|
+| `SKILL.md` | Agent instructions |
+| `reference.md` | Factories, date helper, structure |
+| `assets/` | Factory and date helper templates |
 
 ## Install
 
@@ -37,3 +30,7 @@ The skill applies when the user creates or edits integration/e2e tests in NestJS
 git clone -b nestjs-integration-tests https://github.com/mariocosttaa/my-agent-skills.git
 cp -r my-agent-skills/nestjs-integration-tests ~/.cursor/skills/
 ```
+
+---
+
+→ [See all skills on main](https://github.com/mariocosttaa/my-agent-skills)
