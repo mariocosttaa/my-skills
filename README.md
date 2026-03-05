@@ -7,7 +7,7 @@ NestJS integration tests (API + DB) with Supertest, factories, deterministic dat
 ## Quick install
 
 ```bash
-git clone -b nestjs-integration-tests https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/nestjs-integration-tests ~/.cursor/skills/
+git clone https://github.com/mariocosttaa/my-agent-skills.git && cp -r my-agent-skills/nestjs-integration-tests ~/.cursor/skills/
 ```
 
 → [See all skills](https://github.com/mariocosttaa/my-agent-skills)
