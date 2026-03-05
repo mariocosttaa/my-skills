@@ -75,6 +75,10 @@ type[(scope)]: brief description
 - In **footer**: `BREAKING CHANGE: description`.
 - Or in prefix: `feat(api)!: description` (the `!` before the `:`).
 
+### Mandatory: no Made-with trailer
+- **Never** add `Made-with: Cursor` or similar trailers/footers to commit messages.
+- This is mandatory. Strip them if the IDE pre-fills them before committing.
+
 ---
 
 ## Message examples
